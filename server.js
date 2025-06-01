@@ -6,7 +6,7 @@ const homeRouter = require("./routes/beforeLogin");
 const app = express();
 
 app.set('view engine', 'ejs');
-app.use(express.urlencoded());
+app.use(express.urlencoded({extended : true}));
 
 //views and public folders
 app.set("views", path.join(__dirname, 'views'));
@@ -14,6 +14,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //routers
 app.use('', homeRouter);
+
+//global error handling middleware
+app.use((error, req, res, next) => {
+    error.statusCode = err.statusCode || 500;
+    error.status = error.message || 'error';
+    res.status(error.statusCode).json({
+        status : error.status,
+        message : error.message
+    })
+})
 
 app.listen(3000, ()=>{
     console.log("port 3000 in open state");
