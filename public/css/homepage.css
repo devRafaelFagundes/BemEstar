@@ -4,11 +4,11 @@
 }
 body {
     height: 100vh;
-    background-color: black;
+    background-color: #1b1b29;
 }
 header {
     height: 100px;
-    background-color: greenyellow;
+    background-color: rgb(154, 231, 38);
     color: white;
     text-shadow: 0.7px 1px 1.2px black;
     display: flex;
@@ -23,6 +23,18 @@ header {
 }
 main {
     margin-top: 100px;
+    padding-top: 20px;
+}
+#information {
+    width: 50%;
+    height: 600px;
+    border-color: white;
+    border-style: solid;
+    border-width: 3px;
+    margin: 20px auto;
+    box-shadow: 0px 0px 10px white;
+    border-radius: 15px;
+    
 }
 nav ul {
     display: flex;
@@ -38,6 +50,10 @@ nav ul li {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: .35s ease-in-out;
+}
+nav ul li:hover {
+    transform: scale(1.2);
 }
 footer {
     height: 150px;

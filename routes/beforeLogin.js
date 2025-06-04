@@ -6,7 +6,7 @@ router.get('/home', (req, res)=>{
     res.render("homePage");
 })
 router.get("/start", (req, res)=>{
-    res.render("outside/auths/registerLog");
+    res.render("outside/auths/register");
 })
 router.get('/protectedTest', authMiddleware, (req, res)=>{
     res.send("this is protected");
