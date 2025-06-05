@@ -5,6 +5,7 @@
 body {
     height: 100vh;
     background-color: #1b1b29;
+    background-image: url(../img/background.png);
 }
 header {
     height: 100px;
@@ -27,20 +28,24 @@ main {
 }
 #information {
     width: 50%;
-    height: 600px;
+    height: fit-content;
     border-color: white;
     border-style: solid;
     border-width: 3px;
     margin: 20px auto;
     box-shadow: 0px 0px 10px white;
     border-radius: 15px;
-    
+    color: white;
+    padding: 20px;
+}
+#information h2 {
+    font-size: 3rem;
 }
 nav ul {
     display: flex;
     text-decoration: none;
     list-style: none;
-    gap: 0px 10px;
+    gap: 25px;
     font-size: 1.2rem;
 }
 nav ul li {
@@ -55,10 +60,52 @@ nav ul li {
 nav ul li:hover {
     transform: scale(1.2);
 }
+.container {
+   display: flex;
+
+}
+.container p {
+    width: 50%;
+    text-align: justify;
+    margin-top: 60px;
+}
+.buttonEffectContainer {
+    position: relative;
+    margin-left: 200px;
+}
+.buttonEffectContainer button {
+    position: absolute;
+    padding: 20px;
+    width: 180px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.orbita {
+    width: 30px;
+    height: 8px;
+    /* border-radius: 50%; */
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: rotate(0deg) translateX(var(--radius));
+    animation: spin 4s linear infinite;
+    transform-origin: 0 0;
+}
 footer {
     height: 150px;
     background-color: white;
 }
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg) translateX(var(--radius));
+        /* the idea is to make a lot of bars goind around the button, when the user hover, the bars move faster */
+    }
+}
+
+/* hide the header */
 .hide {
     top: -100px
 }
