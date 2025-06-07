@@ -15,3 +15,14 @@ window.addEventListener('scroll', e =>{
         lastScroll = currentScroll;
     }
 })
+
+const botao = document.querySelector('.buttonEffectContainer > button');
+
+const orbitas = document.querySelectorAll('.buttonEffectContainer > button ~ .orbita')
+console.log(orbitas)
+
+botao.addEventListener('click', (e) => {
+    orbitas.forEach((orbita) => {
+        orbita.style.backgroundColor = 'white';
+    })
+})
