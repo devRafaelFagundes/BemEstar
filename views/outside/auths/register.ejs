@@ -7,17 +7,50 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="register">
-        <h1>R e g i s t e r</h1>
-        <form action="/auth/register" method="post">
-            <input type="text" placeholder="Username" name="username">
-            <input type="password" placeholder="Password" name="password">
-            <input type="email" placeholder="Email" name="Email">
-            <button type="submit">Register</button>
-        </form>
-        <a href="">Already have an account?</a>
-        <div id="complement">
+    <div id="container">
+        <div class="inner">
+                <div id="register">
+                <h1>R e g i s t e r</h1>
+                <form action="/auth/register" method="post">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" placeholder="MyName">
+        
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="MyPassword123" name="password">
+        
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="MyEmail@gmail.com" name="email">
+                    <div>
+                        <button type="submit">Submit</button>
+                        <p>/</p>
+                        <button class="move" type="button">Already have an account?</button>
+                    </div>
+                </form>
+                <div id="complement">
+                </div>
+            </div>
+            <div id="login">
+                <h1>L o g i n</h1>
+                <form action="/auth/login" method="post">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" placeholder="MyName">
+        
+                    <label for="password">Password</label>
+                    <input type="password" placeholder="MyPassword123" name="password">
+        
+                    <label for="email">Email</label>
+                    <input type="email" placeholder="MyEmail@gmail.com" name="email">
+                    <div>
+                        <button type="submit">Submit</button>
+                        <p>/</p>
+                        <button class="move" type="button">No account?</button>
+                    </div>
+                </form>
+                <div id="complement">
+                </div>
+            </div>
         </div>
     </div>
+    <script src="js/registerScript.js"></script>
 </body>
 </html>
