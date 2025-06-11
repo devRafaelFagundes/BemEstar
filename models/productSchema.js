@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const User = require("./userSchema")
 const productSchema = new mongoose.Schema({
     nome : {
         required : true,
@@ -7,6 +8,11 @@ const productSchema = new mongoose.Schema({
     timeToTake : {
         type : Number,
         //probably use seconds/take as measure system, the frontend transforms any hh:mm:ss before sending it to the back end
+        required : true
+    },
+    user : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User',
         required : true
     }
 }, {timestamps : true})

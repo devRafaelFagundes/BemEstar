@@ -7,6 +7,7 @@ const cookie = require('cookie-parser')
 
 const homeRouter = require("./routes/beforeLogin");
 const authRouter = require("./routes/autenticationRoutes")
+const appRouter = require("./routes/app")
 
 const connectToDb = require("./database/db");
 const cookieParser = require("cookie-parser");
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routers
 app.use('', homeRouter);
 app.use('/auth', authRouter)
+app.use('/app', appRouter);
 
 //global error handling middleware
 app.use((error, req, res, next) => {
