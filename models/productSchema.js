@@ -10,6 +10,10 @@ const productSchema = new mongoose.Schema({
         //probably use seconds/take as measure system, the frontend transforms any hh:mm:ss before sending it to the back end
         required : true
     },
+    stock : {
+        type : Number,
+        required : true
+    },
     user : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',

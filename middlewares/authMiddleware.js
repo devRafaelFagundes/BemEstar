@@ -17,7 +17,6 @@ const authMiddleware = async (req, res, next) =>{
             err.statusCode = 401;
             return next(err);
         }
-
         req.userInfo = decodedToken;
         next();
     } catch (error) {

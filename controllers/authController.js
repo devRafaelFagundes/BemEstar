@@ -53,7 +53,8 @@ const logIn = async (req, res, next) => {
 
         const token = jwt.sign({
             username,
-            email
+            email,
+            userId : logUser._id
         }, process.env.JWT_SECRET, {
             expiresIn : '30m'
         })
@@ -64,10 +65,33 @@ const logIn = async (req, res, next) => {
             //30 minutes
         })
         //cookie created to pass the authMiddleware (check if the user is logged in) automatically
-        res.redirect("/app/home");
+        return res.redirect("/app/home");
     } catch (error) {
         next(error);
     }
 }
+const changePassword = async (req, res, next) => {
+    //if he is already logged in
+    //USE ONLY AFTER THE AUTHMIDDLEWARE
+    const {newPassword} = req.body;
+    if (!newPassword) {
+        const err = new Error('No passowrd given');
+        err.statusCode(400)
+    }
+    const userToChange = await User.findOne({_id: req.userInfo.userId})
+    if(!userToChange) {
+        const err = new Error('User not found');
+        err.statusCode = 404;
+        next(err);
+    }
 
-module.exports = {register, logIn}
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    const updatedUser = await User.findByIdAndUpdate(
+        req.userInfo.userId,
+        {password : hashedPassword},
+        {new : true}
+    ) 
+}
+module.exports = {register, logIn, changePassword}
