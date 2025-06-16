@@ -12,6 +12,7 @@
                 <div id="register">
                 <h1>R e g i s t e r</h1>
                 <form action="/auth/register" method="post">
+                    <p id="serverFeeback"></p>
                     <label for="username">Username</label>
                     <input type="text" name="username" placeholder="MyName">
         
@@ -21,7 +22,7 @@
                     <label for="email">Email</label>
                     <input type="email" placeholder="MyEmail@gmail.com" name="email">
                     <div>
-                        <button type="submit">Submit</button>
+                        <button type="button" id="registerButton">Submit</button>
                         <p>/</p>
                         <button class="move" type="button">Have an account?</button>
                     </div>
@@ -32,6 +33,7 @@
             <div id="login">
                 <h1>L o g i n</h1>
                 <form action="/auth/login" method="post">
+                    <p id="feebackLogin"></p>
                     <label for="username">Username</label>
                     <input type="text" name="username" placeholder="MyName">
         
@@ -41,7 +43,7 @@
                     <label for="email">Email</label>
                     <input type="email" placeholder="MyEmail@gmail.com" name="email">
                     <div>
-                        <button type="submit">Submit</button>
+                        <button type="button" id="loginButton">Submit</button>
                         <p>/</p>
                         <button class="move" type="button">No account?</button>
                     </div>

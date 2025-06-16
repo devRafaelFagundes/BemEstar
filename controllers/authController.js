@@ -28,7 +28,10 @@ const register = async (req, res, next) => {
     })
 
     if(newUser) {
-        return res.redirect('/app/home');
+        return res.status(200).json({
+            success : true,
+            message : 'User created succesfully'
+        })
     }
     } catch (error) {
         next(error);
@@ -65,7 +68,10 @@ const logIn = async (req, res, next) => {
             //30 minutes
         })
         //cookie created to pass the authMiddleware (check if the user is logged in) automatically
-        return res.redirect("/app/home");
+        return res.status(200).json({
+            success : true,
+            message : 'User logged succesfully'
+        })
     } catch (error) {
         next(error);
     }
