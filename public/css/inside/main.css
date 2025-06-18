@@ -1,0 +1,116 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    background-color: green;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: 
+    "header header"
+    "sidebar main" 
+    "sidebar footer ";
+    grid-template-rows: auto 1fr auto;
+}
+header {
+    grid-area: header;
+    padding: 10px;
+    background-color: white;
+    color: green;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    height: 2em;
+    align-items: center;
+}
+header h1 {
+    margin-left: 30px;
+}
+header > #loggout {
+    background-color: white;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    position: relative;
+    margin-right: 2rem;
+    transition: .3s;
+}
+header .bar{
+    width: 0.35rem;
+    height: 2rem;
+    background-color: red;
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+}
+header .bar:nth-child(1) {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+header .bar:nth-child(2) {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+#loggout:hover {
+    background-color: red;
+}
+#loggout:hover .bar {
+    background-color: white;
+}
+header #menu {
+    display: none;
+    height: 1.5em;
+    width: 1.5em;
+    background-color: blue;
+}
+/* #menu span {
+
+} */
+aside {
+    grid-area: sidebar;
+    background-color: gray;
+    position: sticky;
+    top: 52px;
+    align-self: start;
+    height: calc(100vh - 52px);
+}
+main {
+    grid-area: main;
+}
+footer {
+    grid-area: footer;
+    padding: 10px;
+    background-color: black;
+    color: white;
+}
+@media (max-width: 800px) {
+    body {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+    }
+    aside {
+        position: fixed;
+        top: 52px;
+        left: 0;
+        width: 250px;
+        transform: translateX(-300px);
+        transition: .4s;
+    }
+    #loggout {
+        display: none;
+    }
+    header {
+        justify-content: flex-start;
+    }
+    header #menu {
+        display: block;
+    }
+    .show {
+        transform: translateX(0);
+    }
+}

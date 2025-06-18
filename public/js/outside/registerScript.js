@@ -3,15 +3,17 @@ const inner = document.querySelector('.inner');
 const registerButton = document.getElementById('registerButton');
 const loginButton = document.getElementById('loginButton');
 
-const username = document.querySelector('#register input[name="username"]').value;
-const email = document.querySelector('#register input[name="email"]').value;
-const password = document.querySelector('#register input[name="password"]').value;
 
-const feedBackText = document.getElementById("serverFeedback")
+
+const serverFeedback = document.getElementById("serverFeedback")
 const loginFeedback = document.getElementById('feedbackLogin')
 
 registerButton.addEventListener('click', async (e) => {
     e.preventDefault()
+    const username = document.querySelector('#register input[name="username"]').value;
+    const email = document.querySelector('#register input[name="email"]').value;
+    const password = document.querySelector('#register input[name="password"]').value;
+
     const res = await fetch('/auth/register', {
         method : 'POST',
         headers : {
@@ -28,12 +30,17 @@ registerButton.addEventListener('click', async (e) => {
         console.log('user registered')
     }
     
-    feedBackText.innerText = data.message
+    serverFeedback.innerText = data.message;
 
 })
 loginButton.addEventListener('click', async (e) => {
     e.preventDefault();
-    const res = fetch('/auth/register', {
+
+    const username = document.querySelector('#login input[name="username"]').value;
+    const email = document.querySelector('#login input[name="email"]').value;
+    const password = document.querySelector('#login input[name="password"]').value;
+
+    const res = await fetch('/auth/login', {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json'

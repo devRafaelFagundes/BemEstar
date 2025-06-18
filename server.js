@@ -24,9 +24,9 @@ app.set("views", path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routers
-app.use('', homeRouter);
 app.use('/auth', authRouter)
 app.use('/app', appRouter);
+app.use('', homeRouter);
 
 //global error handling middleware
 app.use((error, req, res, next) => {

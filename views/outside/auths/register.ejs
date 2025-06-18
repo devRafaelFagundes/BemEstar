@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/outside/register.css">
+    <link rel="stylesheet" href="/css/outside/register.css">
     <title>Document</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
                 <div id="register">
                 <h1>R e g i s t e r</h1>
                 <form action="/auth/register" method="post">
-                    <p id="serverFeeback"></p>
+                    <p id="serverFeedback" class="response"></p>
                     <label for="username">Username</label>
                     <input type="text" name="username" placeholder="MyName">
         
@@ -20,7 +20,13 @@
                     <input type="password" placeholder="MyPassword123" name="password">
         
                     <label for="email">Email</label>
-                    <input type="email" placeholder="MyEmail@gmail.com" name="email">
+                    <input type="email" placeholder="MyEmail@gmail.com" name="email">                    
+                    <label for="role">Tipo de Conta</label>
+                    <select name="role" id="role">
+                        <option value="" disabled>Tipo de conta</option>
+                        <option value="">Cliente</option>
+                        <option value="">Profissional</option>
+                    </select>
                     <div>
                         <button type="button" id="registerButton">Submit</button>
                         <p>/</p>
@@ -33,7 +39,7 @@
             <div id="login">
                 <h1>L o g i n</h1>
                 <form action="/auth/login" method="post">
-                    <p id="feebackLogin"></p>
+                    <p id="feedbackLogin" class="response"></p>
                     <label for="username">Username</label>
                     <input type="text" name="username" placeholder="MyName">
         

@@ -93,6 +93,10 @@ button:hover {
 #p{
     font-size: 2rem !important;
 }
+select {
+    padding: 5px;
+    margin: 10px 0px;
+}
 #complement {
     background-color: white;
     position: absolute;
@@ -107,4 +111,10 @@ button:hover {
   transition: transform 0.6s;
 }
 
- 
+.response {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+    text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.836);
+} 

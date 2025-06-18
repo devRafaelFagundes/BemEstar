@@ -11,7 +11,7 @@ const register = async (req, res, next) => {
         //check if the user already exists
         const usernameExists = await User.findOne({$or : [{username}, {email}]});
         if (usernameExists) {        
-            const err = new Error('user already exists');
+            const err = new Error('User already exists');
             err.statusCode = 400;
             return next(err);
     }
@@ -41,7 +41,8 @@ const register = async (req, res, next) => {
 const logIn = async (req, res, next) => {
     try {
         const {username, email, password} = req.body;
-        const logUser = await User.findOne({$or : [{username}, {email}]})
+        console.log(req.body)
+        const logUser = await User.findOne({username})
         if(!logUser) {
             const err = new Error('User do not exist');
             err.statusCode = 404;

@@ -18,8 +18,22 @@ const userSchema = new mongoose.Schema({
         trim : true
     },
     role : {
-        enum : ["user", "admin"]
-    }
+        type : String,
+        enum : ["client", "professional"],
+        default : "client"
+    },
+
+    professional : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User',
+        default : null
+    },
+
+    clientes : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User',
+        default : null
+    }]
 }, {timestamps : true})
 
 module.exports = mongoose.model('User', userSchema);
