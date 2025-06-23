@@ -61,13 +61,10 @@ header .bar:nth-child(2) {
 }
 header #menu {
     display: none;
-    height: 1.5em;
-    width: 1.5em;
-    background-color: blue;
+    height: 2em;
+    width: 2em;
+    /* background-color: blue; */
 }
-/* #menu span {
-
-} */
 aside {
     grid-area: sidebar;
     background-color: gray;
@@ -108,7 +105,21 @@ footer {
         justify-content: flex-start;
     }
     header #menu {
-        display: block;
+        /* display: block; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    #menu .barMenu {
+        width: 100%;
+        height: 5px;
+        background-color: gray;
+        gap: 1.7px;
+        border-radius: 15px;
+    }
+    #menu, .barMenu {
+        transform: scale(0.85);
     }
     .show {
         transform: translateX(0);

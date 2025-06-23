@@ -6,12 +6,12 @@ const jwt = require("jsonwebtoken")
 
 const register = async (req, res, next) => {
     try {
-        const {username, password, email} = req.body;
-        
+        const {username, password, email, role} = req.body;  
+        console.log(role)      
         //check if the user already exists
         const usernameExists = await User.findOne({$or : [{username}, {email}]});
         if (usernameExists) {        
-            const err = new Error('User already exists');
+            const err = new Error('Username or Email is already taken');
             err.statusCode = 400;
             return next(err);
     }
@@ -24,7 +24,8 @@ const register = async (req, res, next) => {
     const newUser = await User.create({
         username,
         password: hashedPassword,
-        email
+        email,
+        role
     })
 
     if(newUser) {
@@ -58,15 +59,16 @@ const logIn = async (req, res, next) => {
         const token = jwt.sign({
             username,
             email,
-            userId : logUser._id
+            userId : logUser._id,
+            role: logUser.role
         }, process.env.JWT_SECRET, {
-            expiresIn : '30m'
+            expiresIn : '120m'
         })
         res.cookie('token', token, {
             httpOnly : true,
             secure : true,
-            maxAge : 30 * 60 * 1000
-            //30 minutes
+            maxAge :  2*60 * 60 * 1000
+            //2 hours
         })
         //cookie created to pass the authMiddleware (check if the user is logged in) automatically
         return res.status(200).json({

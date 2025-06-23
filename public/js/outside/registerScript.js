@@ -13,6 +13,7 @@ registerButton.addEventListener('click', async (e) => {
     const username = document.querySelector('#register input[name="username"]').value;
     const email = document.querySelector('#register input[name="email"]').value;
     const password = document.querySelector('#register input[name="password"]').value;
+    const role = document.querySelector('#register select').value
 
     const res = await fetch('/auth/register', {
         method : 'POST',
@@ -22,7 +23,8 @@ registerButton.addEventListener('click', async (e) => {
         body : JSON.stringify({
             username, 
             email,
-            password
+            password,
+            role
         })
     })
     const data = await res.json();
