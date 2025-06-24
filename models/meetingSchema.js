@@ -12,8 +12,21 @@ const meetingSchema = new mongoose.Schema({
             ref: 'User',
             required: true
         }
-    ]
+    ],
+    done : {
+        type : Boolean,
+        default: false
+    },
+    date : {
+        type : Date,
+        required : true
+    },
+    topic : String,
+    link : String,
+}, {
+    timestamps : true
+    //createdAt updatedAt
 })
-//ref: 'User' so i can use .populate() later
 
+//ref: 'User' so i can use .populate() later
 module.exports = mongoose.model('Meeting', meetingSchema);
