@@ -73,8 +73,21 @@ aside {
     align-self: start;
     height: calc(100vh - 52px);
 }
+#sidebar ul  li{
+    padding: 15px;
+    background-color: rgb(163, 162, 162);
+    margin: 5px 0px;
+    text-align: center;
+}
+#sidebar ul li:hover {
+    background-color: rgb(187, 186, 186);
+}
+
 main {
     grid-area: main;
+}
+.content {
+    display: none;
 }
 footer {
     grid-area: footer;
@@ -83,7 +96,7 @@ footer {
     color: white;
 }
 
-.display {
+.content.display {
     display: block;
 }
 
