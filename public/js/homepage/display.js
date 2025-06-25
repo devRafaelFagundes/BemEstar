@@ -6,6 +6,8 @@ button.addEventListener("click", (e) => {
 
 const selectors = document.querySelectorAll(".selector")
 const contents = document.querySelectorAll(".content")
+
+contents[0].classList.add("display");
 selectors.forEach((selected) => {
     selected.addEventListener("click", e => {
         let indice = 0

@@ -1,4 +1,5 @@
 require("dotenv").config()
+const crypto = require("crypto")
 const User = require("../models/userSchema")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
@@ -55,6 +56,15 @@ const logIn = async (req, res, next) => {
             err.statusCode = 401;
             return next(err)
         }
+        
+        const refreshToken = crypto.randomBytes(64).toString('hex');
+
+        logUser.refreshToken = {
+            token : refreshToken,
+            expiresAt : new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
+            //7 days
+        };
+        await logUser.save()
 
         const token = jwt.sign({
             username,
@@ -62,13 +72,21 @@ const logIn = async (req, res, next) => {
             userId : logUser._id,
             role: logUser.role
         }, process.env.JWT_SECRET, {
-            expiresIn : '120m'
+            expiresIn : '15m'
         })
         res.cookie('token', token, {
             httpOnly : true,
             secure : true,
-            maxAge :  2*60 * 60 * 1000
-            //2 hours
+            sameSite: 'Strict',
+            maxAge :  15 * 60 * 1000
+            //15 minutes
+        })
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly : true,
+            secure : true,
+            sameSite: 'Strict',
+            maxAge :  1000 * 60 * 60 * 24 * 7
+            //7 days
         })
         //cookie created to pass the authMiddleware (check if the user is logged in) automatically
         return res.status(200).json({
@@ -79,6 +97,7 @@ const logIn = async (req, res, next) => {
         next(error);
     }
 }
+
 const changePassword = async (req, res, next) => {
     //if he is already logged in
     //USE ONLY AFTER THE AUTHMIDDLEWARE
