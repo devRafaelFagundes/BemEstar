@@ -76,15 +76,15 @@ const logIn = async (req, res, next) => {
         })
         res.cookie('token', token, {
             httpOnly : true,
-            secure : true,
-            sameSite: 'Strict',
+            secure : false,
+            sameSite: 'Lax',
             maxAge :  15 * 60 * 1000
             //15 minutes
         })
         res.cookie('refreshToken', refreshToken, {
             httpOnly : true,
-            secure : true,
-            sameSite: 'Strict',
+            secure : false,
+            sameSite: 'Lax',
             maxAge :  1000 * 60 * 60 * 24 * 7
             //7 days
         })

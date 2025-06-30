@@ -13,6 +13,17 @@ body {
     "sidebar footer ";
     grid-template-rows: auto 1fr auto;
 }
+main {
+    padding: 15px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 15px;
+    margin: 5px;
+    background-color: white;
+    grid-area: main;
+    position: relative;
+}
 header {
     grid-area: header;
     padding: 10px;
@@ -83,9 +94,6 @@ aside {
     background-color: rgb(187, 186, 186);
 }
 
-main {
-    grid-area: main;
-}
 .content {
     display: none;
 }
@@ -100,6 +108,26 @@ footer {
     display: block;
 }
 
+#add-meeting {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    background-color: green;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .4s;
+}
+
+#add-meeting:hover {
+    transform: translateY(-10px) scale(1.15);
+}
 
 @media (max-width: 800px) {
     body {

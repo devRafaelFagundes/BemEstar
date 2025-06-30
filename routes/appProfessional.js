@@ -5,8 +5,10 @@ const router = express.Router();
 
 //this page is for the professional
 //need a middleware to only let access for professional users
-router.get('/home', authMiddleware, professionalMiddleware, (req, res) => {
+router.get('/home', authMiddleware, (req, res) => {
     res.render("inside/homepage");
 })
+
+router.post('/join', authMiddleware, professionalMiddleware)
 
 module.exports = router;

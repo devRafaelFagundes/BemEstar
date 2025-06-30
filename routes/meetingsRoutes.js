@@ -1,9 +1,12 @@
 const express = require("express")
 const authMiddleware =  require("../middlewares/authMiddleware")
 const professionalMiddleware = require("../middlewares/professionalMiddleware")
+const {createMeeting, getMeeting} = require("../controllers/meetingController")
 
-
-//create meeting
+const meetingRouter = express.Router()
+meetingRouter.get('/meetings', authMiddleware, getMeeting)
+meetingRouter.post('/create-meeting', authMiddleware, professionalMiddleware, createMeeting)
 //delete meeting
-//get meetings
 //update meeting
+
+module.exports = meetingRouter;
