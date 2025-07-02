@@ -128,6 +128,23 @@ footer {
 #add-meeting:hover {
     transform: translateY(-10px) scale(1.15);
 }
+#meeting-post {
+    height: 500px;
+    width: 500px;
+    border-radius: 15px;
+    background-color: brown;
+    padding: 5px;
+    position: fixed;
+    top: -510px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .5s;
+}
+.appearScreen {
+    transform: translateX(-50%);
+    top: 20vh !important;
+    z-index: 2;
+}
 
 @media (max-width: 800px) {
     body {

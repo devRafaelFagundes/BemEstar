@@ -72,20 +72,22 @@ const logIn = async (req, res, next) => {
             userId : logUser._id,
             role: logUser.role
         }, process.env.JWT_SECRET, {
-            expiresIn : '15m'
+            expiresIn : '1m'
         })
         res.cookie('token', token, {
             httpOnly : true,
             secure : false,
             sameSite: 'Lax',
-            maxAge :  15 * 60 * 1000
+            maxAge :  2 * 60 * 1000,
+            path: '/'
             //15 minutes
         })
         res.cookie('refreshToken', refreshToken, {
             httpOnly : true,
             secure : false,
             sameSite: 'Lax',
-            maxAge :  1000 * 60 * 60 * 24 * 7
+            maxAge :  1000 * 60 * 60 * 24 * 7,
+            path: '/'
             //7 days
         })
         //cookie created to pass the authMiddleware (check if the user is logged in) automatically

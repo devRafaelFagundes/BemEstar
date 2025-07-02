@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const cookie = require('cookie-parser')
+const cors = require("cors");
 
 
 const homeRouter = require("./routes/beforeLogin");
@@ -13,6 +14,11 @@ const connectToDb = require("./database/db");
 const cookieParser = require("cookie-parser");
 
 const app = express();
+
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}));
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));

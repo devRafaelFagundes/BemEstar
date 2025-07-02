@@ -29,27 +29,37 @@ const authMiddleware = async (req, res, next) =>{
             err.statusCode = 403;
             return next(err)
         }
+        console.log("Token expirado")
         const refreshToken = req.cookies.refreshToken;
         const matchRefresh = await User.findOne({
             "refreshToken.token" : refreshToken
         })
+
         if(!matchRefresh || !matchRefresh.refreshToken || new Date() > matchRefresh.refreshToken.expiresAt) {
             const err = new Error("Invalid refresh token, please login again")
             err.statusCode = 403
             return next(err)
         }
+        
+        delete decodedExpired.exp
+        delete decodedExpired.iat
+
+        console.log("Refresh token válido")
         const newToken = jwt.sign(
             decodedExpired
             , process.env.JWT_SECRET, {
-            expiresIn : '15m'
+            expiresIn : '1m'
         })
+        console.log("novo token criado")
         res.cookie("token", newToken, {
             httpOnly : true,
             secure : false,
             sameSite: 'Lax',
-            maxAge :  15 * 60 * 1000
+            maxAge :  2 * 60 * 1000,
+            path: '/'
             //15 minutes
         })
+        console.log("Novo cookie criado com o token")
         req.userInfo = decodedExpired;
         return next()
     }            
