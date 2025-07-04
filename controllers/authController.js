@@ -4,7 +4,6 @@ const User = require("../models/userSchema")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
-
 const register = async (req, res, next) => {
     try {
         const {username, password, email, role} = req.body;  
@@ -72,16 +71,17 @@ const logIn = async (req, res, next) => {
             userId : logUser._id,
             role: logUser.role
         }, process.env.JWT_SECRET, {
-            expiresIn : '1m'
+            expiresIn : '15m'
         })
         res.cookie('token', token, {
             httpOnly : true,
             secure : false,
             sameSite: 'Lax',
-            maxAge :  2 * 60 * 1000,
+            maxAge :  1000 * 60 * 60 * 24 * 7,
+            //1 week
             path: '/'
-            //15 minutes
         })
+        
         res.cookie('refreshToken', refreshToken, {
             httpOnly : true,
             secure : false,

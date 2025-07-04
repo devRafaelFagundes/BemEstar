@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const User = require('./userSchemaa')
+const User = require('./userSchema')
 const meetingSchema = new mongoose.Schema({
     professional : {
         type: mongoose.Schema.Types.ObjectId,

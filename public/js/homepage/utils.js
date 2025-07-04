@@ -19,18 +19,3 @@ export function removeBlurScreen() {
         blurScreen = null
     }
 }
-
-export const refreshToken = (() => {
-    setInterval(async () => {
-        try {
-            await fetch('/app/ping', {
-            credentials : "include"
-            })
-            console.log("Refreshed")
-        }
-        catch (err) {
-            console.error("Algo deu errado ao renovar o token: ", err)
-        }
-    }, 1000 * 30)
-    //30 seconds
-})()

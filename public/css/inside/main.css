@@ -146,6 +146,10 @@ footer {
     z-index: 2;
 }
 
+#reunioes-content form {
+    display: flex;
+}
+
 @media (max-width: 800px) {
     body {
         grid-template-columns: 1fr;

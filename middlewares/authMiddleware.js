@@ -2,6 +2,8 @@ require("dotenv").config()
 const crypto = require("crypto")
 const User = require("../models/userSchema")
 const jwt = require("jsonwebtoken")
+const tokenMinutesLimit = require("../controllers/authController")
+
 const authMiddleware = async (req, res, next) =>{
     //get token from the cookie
     const token = req.cookies.token;
@@ -48,16 +50,15 @@ const authMiddleware = async (req, res, next) =>{
         const newToken = jwt.sign(
             decodedExpired
             , process.env.JWT_SECRET, {
-            expiresIn : '1m'
+            expiresIn : '15m'
         })
         console.log("novo token criado")
         res.cookie("token", newToken, {
             httpOnly : true,
             secure : false,
             sameSite: 'Lax',
-            maxAge :  2 * 60 * 1000,
+            maxAge :  1000 * 60 * 60 * 24 * 7,
             path: '/'
-            //15 minutes
         })
         console.log("Novo cookie criado com o token")
         req.userInfo = decodedExpired;

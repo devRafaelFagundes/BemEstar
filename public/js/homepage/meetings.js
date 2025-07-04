@@ -12,3 +12,18 @@ window.addEventListener("click", (ev) => {
         }
         removeBlurScreen()
     })
+
+const findMeetings = async () => {
+    try {
+        const filter = ''
+        //add parameters and user as query for the fetching (REMEMBER USING URLSEARCHPARAMS)
+
+        const res = await fetch('/api/meetings', {
+            method: "GET",
+            credentials : "include"
+        })
+    } catch (err) {
+        //show user the error
+    }
+    
+}

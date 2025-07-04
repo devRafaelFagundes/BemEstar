@@ -10,7 +10,4 @@ router.get('/home', authMiddleware, (req, res) => {
 
 router.post('/join', authMiddleware, professionalMiddleware)
 
-router.get('/ping', authMiddleware);
-//use, in the frontend, for refreshing the token (after 10 minutes for example)
-
 module.exports = router;

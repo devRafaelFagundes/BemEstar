@@ -9,6 +9,7 @@ const cors = require("cors");
 const homeRouter = require("./routes/beforeLogin");
 const authRouter = require("./routes/autenticationRoutes")
 const appRouter = require("./routes/appProfessional")
+const apiRouter = require("./routes/apisRoutes")
 
 const connectToDb = require("./database/db");
 const cookieParser = require("cookie-parser");
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', authRouter)
 app.use('/app', appRouter);
 app.use('', homeRouter);
+app.use('/api', apiRouter);
 
 //global error handling middleware
 app.use((error, req, res, next) => {

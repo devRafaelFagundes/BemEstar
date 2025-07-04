@@ -9,11 +9,11 @@ const getMeetings = async (req, res, next) => {
         const role = req.userInfo.role;
         const userId = req.userInfo.userId
         const filter = await buildFilter(req.query, role, userId)
-        const data = await Meeting.find({filter});
+        const data = await Meeting.find(filter);
         return res.status(200).json({
             success: true,
             data
-        })    
+        })
     } catch (err) {
         next(err)
     }
