@@ -1,0 +1,72 @@
+#meetings {
+    list-style: none;
+}
+#meetings li{
+    padding: 10px;
+    background-color: green;
+    color: white;
+    width: 50%;
+    border-radius: 15px;
+    margin: 0px auto;
+}
+
+#add-meeting {
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
+    background-color: green;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .4s;
+}
+
+#add-meeting:hover {
+    transform: translateY(-10px) scale(1.15);
+}
+#meeting-post {
+    height: 500px;
+    width: 500px;
+    border-radius: 15px;
+    background-color: brown;
+    padding: 5px;
+    position: fixed;
+    top: -510px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all .5s;
+}
+.appearScreen {
+    transform: translateX(-50%);
+    top: 20vh !important;
+    z-index: 2;
+}
+#reunioes-content {
+    color: white;
+    font-weight: bold;
+}
+#reunioes-content form {
+    display: flex;
+    flex-direction: column;
+}
+#reunioes-content form input {
+    padding: 5px;
+    border-radius: 5px;
+}
+#meeting-post form {
+    padding: 5px;
+}
+
+#meeting-post form>div {
+    padding: 5px;
+    background-color: white;
+    color: black;
+    height: 15px;
+    border-radius: 5px;
+}

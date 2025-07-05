@@ -10,6 +10,12 @@ const getMeetings = async (req, res, next) => {
         const userId = req.userInfo.userId
         const filter = await buildFilter(req.query, role, userId)
         const data = await Meeting.find(filter);
+        if(data.length == 0) {
+            return res.status(404).json({
+                success: false,
+                data : 'Nenhuma reunião encontrada'
+            })
+        }
         return res.status(200).json({
             success: true,
             data

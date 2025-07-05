@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/inside/main.css">
+    <link rel="stylesheet" href="/css/homepage/main.css">
+    <link rel="stylesheet" href="/css/homepage/meetings.css">
+    <link rel="stylesheet" href="/css/homepage/outros.css">
     <title>BemEstar+</title>
 </head>
 <body>
@@ -32,13 +34,21 @@
     <main>
         <div id="reunioes-content" class="content">
             Meetings here
+            <ul id="meetings">
+                
+            </ul>
             <!-- when button is clicked -->
             <div id="meeting-post">
                 <form action="">
+                    <label for="topic">Tópico</label>
+                    <input type="text" name="topic">
+                    <label for="date">Data</label>
+                    <input type="date" name="date" required>
+                    <!-- <div>Clientes</div> -->
                     <input type="text" name="">
                     <input type="text" name="">
-                    <input type="text" name="">
-                    <input type="text" name="">
+                    <button type="button"></button>
+                    <!-- use fetch -->
                 </form>
             </div>
             <!-- end -->
@@ -54,6 +64,16 @@
         </div>
         <div id="outros-content" class="content">
             Outros
+            <div id="join">
+                Associar:
+                <form>
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name">
+                    <label for="password">Senha do Usuário</label>
+                    <input type="password" name="password" id="password">
+                    <button type="button" id="joinUser">Salvar</button>
+                </form>
+            </div>
         </div>
     </main>
     <footer>footer</footer>

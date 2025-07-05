@@ -1,6 +1,8 @@
-import { genBlurElement, removeBlurScreen} from "./utils.js"
+import { genBlurElement, removeBlurScreen, showOnScreen} from "./utils.js"
 const createMeeting = document.getElementById("add-meeting")
 const createScreen = document.getElementById("meeting-post")
+const meetingSpace = document.getElementById("meetings")
+
 createMeeting.addEventListener("click", (e) => {
     e.stopPropagation();
     createScreen.classList.add('appearScreen')
@@ -22,8 +24,52 @@ const findMeetings = async () => {
             method: "GET",
             credentials : "include"
         })
+        const response = await res.json();
+        console.log(response)
+        const allMeetings = response.data;
+        console.log(allMeetings)
+        if(!Array.isArray(allMeetings)) {
+            const newMeeting = document.createElement("li")
+            newMeeting.innerText = allMeetings;
+            meetingSpace.appendChild(newMeeting)
+        }
+        else {
+            allMeetings.forEach(meeting => {
+                const newMeeting = document.createElement("li");
+                newMeeting.innerText = meeting.topic;
+                meetingSpace.appendChild(newMeeting);
+            });
+        }
     } catch (err) {
         //show user the error
+        console.log(err)
     }
-    
 }
+findMeetings()
+
+const joinUserButton = document.findElementByid('joinUser')
+const username = document.findElementByid('name')
+const userPassword = document.findElementByid('password')
+
+const fetchJoin = async () => {
+    try {
+        const res = await fetch('/app/join', {
+            method : 'POST',
+            credentials : 'include',
+            body : JSON.stringify({
+                username,
+                password : userPassword
+            })
+        })
+        const response = await res.json()
+        showOnScreen(response.data, response.success)
+
+    } catch(err) {
+        // show generic error 'something went wrong' to the user
+        showOnScreen('Algo deu errado ao tentar associar o usuário', false)
+    }
+}
+
+joinUserButton.addEventListener('click', (e) => {
+    fetchJoin()
+})
