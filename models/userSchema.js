@@ -22,7 +22,13 @@ const userSchema = new mongoose.Schema({
         enum : ["client", "professional"],
         default : "client"
     },
-
+    personalInfo : {
+            weight : Number,
+            height : Number,
+            bodyfat : Number,
+            goal : String,
+            medicalCondition : [String]
+    },
     professional : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User',

@@ -13,4 +13,10 @@ apiRouter.post('/create-meeting', authMiddleware, professionalMiddleware, create
 //delete meeting
 //update meeting
 
+//----------clients
+
+const {getClients} = require('../controllers/clientsController')
+
+apiRouter.get('/clients', authMiddleware, professionalMiddleware, getClients)
+
 module.exports = apiRouter;

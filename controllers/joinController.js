@@ -5,7 +5,9 @@ const User = require("../models/userSchema")
 
 const joinFunction = async (req, res, next) => {
     try {
-        const {username, password} = req.body;
+        const username  = req.body.username?.trim();
+        const password = req.body.password
+
         const idProfissional = req.userInfo.userId;
         console.log(username, password)
         if(!username || !password) {
@@ -46,6 +48,16 @@ const joinFunction = async (req, res, next) => {
         }
         user.professional = idProfissional;
         await user.save()
+        
+        const professional = await User.findById(idProfissional);
+        if(!professional) {
+            const err = new Error('You dont even exists in the database, how is that possible?')
+            err.statusCode = 401
+            return next(err)
+        }
+        
+        professional.clientes.push(user._id);
+        await professional.save()
     } catch (error) {
         next(error)    
     }

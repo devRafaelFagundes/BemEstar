@@ -13,7 +13,7 @@ const getMeetings = async (req, res, next) => {
         if(data.length == 0) {
             return res.status(404).json({
                 success: false,
-                data : 'Nenhuma reunião encontrada'
+                message : 'Nenhuma reunião encontrada'
             })
         }
         return res.status(200).json({
@@ -57,7 +57,8 @@ const createMeeting = async (req, res, next) => {
 }
 //update meeting
 const updateMeeting  = async (req, res, next) => {
-    //need to understando the logic behind updating long schemas
+    //need to understand the logic behind updating long schemas
+    //not really, i can simply use fetch do get all the info and already put in the form
 }
 
 //delete meeting

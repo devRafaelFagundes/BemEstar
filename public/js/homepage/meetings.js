@@ -26,7 +26,7 @@ const findMeetings = async () => {
         })
         const response = await res.json();
         console.log(response)
-        const allMeetings = response.data;
+        const allMeetings = response.message;
         console.log(allMeetings)
         if(!Array.isArray(allMeetings)) {
             const newMeeting = document.createElement("li")
