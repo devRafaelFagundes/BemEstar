@@ -7,13 +7,13 @@ const joinFunction = async (req, res, next) => {
     try {
         const {username, password} = req.body;
         const idProfissional = req.userInfo.userId;
-
+        console.log(username, password)
         if(!username || !password) {
             const err = new Error("Faltando informações")
             err.statusCode = 400;
             return next(err)
         }
-        if(typeof(username) !== 'string' || !Array.isArray(username)) {
+        if(typeof(username) !== 'string') {
             const err = new Error("Formato inválido")
             err.statusCode = 401;
             return next(err)
@@ -21,10 +21,16 @@ const joinFunction = async (req, res, next) => {
         const user = await User.findOne({
             username
         })
-        
+        const testing = await User.find();
+        console.log(testing)
         if(!user) {
             const err = new Error("User not found")
             err.statusCode = 404
+            return next(err)
+        }
+        if(user.role === 'professional') {
+            const err = new Error('Usuário não pode ser adicionado pois é um profissional')
+            err.statusCode = 401;
             return next(err)
         }
         if(user.professional) {

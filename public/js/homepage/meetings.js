@@ -47,29 +47,35 @@ const findMeetings = async () => {
 }
 findMeetings()
 
-const joinUserButton = document.findElementByid('joinUser')
-const username = document.findElementByid('name')
-const userPassword = document.findElementByid('password')
+const joinUserButton = document.getElementById('joinUser')
 
-const fetchJoin = async () => {
+const fetchJoin = async (username, userPassword) => {
     try {
         const res = await fetch('/app/join', {
             method : 'POST',
             credentials : 'include',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
             body : JSON.stringify({
                 username,
                 password : userPassword
             })
         })
         const response = await res.json()
-        showOnScreen(response.data, response.success)
+        console.log(response)
+        showOnScreen(response.message, response.success)
 
     } catch(err) {
         // show generic error 'something went wrong' to the user
         showOnScreen('Algo deu errado ao tentar associar o usuário', false)
+        console.log(err)
     }
 }
 
 joinUserButton.addEventListener('click', (e) => {
-    fetchJoin()
+    const username = document.getElementById('name').value
+    const userPassword = document.getElementById('password').value
+    console.log(username, userPassword)
+    fetchJoin(username, userPassword)
 })
