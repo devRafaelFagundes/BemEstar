@@ -26,10 +26,10 @@ export async function showOnScreen(error, success) {
     errorElement.innerText = error;
     document.body.appendChild(errorElement);
     if(success) {
-        errorElement.style.color = 'red'
+        errorElement.style.color = 'green'
     }
     else {
-        errorElement.style.color = 'green'
+        errorElement.style.color = 'red'
     }
     errorElement.style.backgroundColor = 'white'
     errorElement.style.padding = '5px'

@@ -5,10 +5,19 @@ const getClients = async (req, res, next) => {
     
     //will create a filter function later for this part
     try {
-        const idProfissional = req.userInfo.userId;
-        const clients = await User.find({
-            professional : idProfissional
-        })
+        const idProfissional = new mongoose.Types.ObjectId(req.userInfo.userId) 
+        const clients = await User.aggregate([
+            {
+                $match : {
+                    professional : idProfissional
+                }
+            },
+            {
+                $project : {
+                    "username" : 1
+                }
+            }
+        ])
         
         if(!clients) {
             const error = new Error('Sem clientes por enquanto')

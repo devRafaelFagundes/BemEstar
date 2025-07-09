@@ -58,6 +58,11 @@ const joinFunction = async (req, res, next) => {
         
         professional.clientes.push(user._id);
         await professional.save()
+        
+        return res.status(200).json({
+            success : true,
+            message : 'Usuário ingressado com sucesso'
+        })
     } catch (error) {
         next(error)    
     }

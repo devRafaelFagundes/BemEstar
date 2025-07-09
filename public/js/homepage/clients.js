@@ -1,5 +1,4 @@
 const clientsSpace = document.getElementById('clients')
-
 const getClients = async () => {
     const res = await fetch('/api/clients', {
         method : 'GET',
@@ -8,15 +7,24 @@ const getClients = async () => {
         }
     })
     const data = await res.json()
-    console.log(data)
+    return data.message;
+}
 
-    const clients  = data.message;
+const renderClients = async () => {
+
+    const clients = await getClients()
     if(Array.isArray(clients)) {
         clients.forEach(client => {
-            //show each one in the screem
+            const eachClient = document.createElement('a')
+            eachClient.href = `/app/${client._id}`
+            eachClient.innerText = client.username
+            clientsSpace.append(eachClient)
+            //client._id is available too
         })
     }
     else {
-        //show the message, probably that the professional have no clients yet
+        clientsSpace.append(clients)
     }
 }
+
+renderClients()
