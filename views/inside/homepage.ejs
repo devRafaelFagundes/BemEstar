@@ -25,8 +25,8 @@
     <aside id="sidebar">
             <ul>
                <li id="reunioes-selector" class="selector">Reuniões</li>
-               <li id="clientes-selector" class="selector">Clientes</li>
-               <li id="conversas-selector" class="selector">Conversas</li>
+               <li id="clientes-selector" class="selector profOnly">Clientes</li>
+               <li id="conversas-selector" class="selector demo">Conversas</li>
                <li class="selector" id="outro-selector">
                 Outros
                </li>
@@ -53,11 +53,11 @@
                 </form>
             </div>
             <!-- end -->
-            <div id="add-meeting">
+            <div id="add-meeting" class="profOnly">
                 +
             </div>
         </div>
-        <div id="clientes-content" class="content">
+        <div id="clientes-content" class="content profOnly">
             Clients Info Here
             <div>
                 <ul id="clients">
@@ -65,12 +65,12 @@
                 </ul>
             </div>
         </div>
-        <div id="conversas-content" class="content">
+        <div id="conversas-content" class="content" class="demo">
             Chats
         </div>
         <div id="outros-content" class="content">
             Outros
-            <div id="join">
+            <div id="join" class="profOnly">
                 Associar:
                 <form>
                     <label for="name">Nome</label>

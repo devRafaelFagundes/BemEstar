@@ -46,3 +46,12 @@ export async function showOnScreen(error, success) {
     await new Promise(resolve => setTimeout(resolve, 300));
     errorElement.remove();
 }
+
+export async function hideFromClass(className) {
+    console.log('searching items with the class:', className)
+    const classItems = document.querySelectorAll(`.${className}`);
+    console.log(classItems)
+    classItems.forEach(item => {
+        item.style.display = 'none'
+    })
+}

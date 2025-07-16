@@ -45,7 +45,9 @@ const clientsPersonal = async (req, res, next) => {
         const userId = new mongoose.Types.ObjectId(req.params.id);
 
         if(userRole === 'professional') {
-            if(!userClients.includes(userId.toString())) {
+            const professional = await User.findById(TrueUserId);
+            console.log(professional.clientes)
+            if(!professional.clientes.includes(userId.toString())) {
                 return res.status(400).json({
                     success : false,
                     message : 'Não pode acessar esse usuário'
