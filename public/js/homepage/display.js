@@ -2,6 +2,23 @@ import { hideFromClass } from "./utils.js";
 
 hideFromClass('demo');
 
+//discover the user role (professional or client)
+const json = document.getElementById('server-data').textContent;
+const serverData = JSON.parse(json)
+
+//serverData available info:
+// email 
+// role 
+// userId
+// username
+
+if(serverData.role === 'client') {
+    hideFromClass('profOnly')
+}
+else {
+    hideFromClass('clientOnly')
+}
+
 const button = document.getElementById("menu");
 const sideBar = document.getElementById("sidebar")
 button.addEventListener("click", (e) => {

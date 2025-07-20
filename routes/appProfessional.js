@@ -6,7 +6,8 @@ const router = express.Router();
 const {clientsPersonal} = require('../controllers/clientsController')
 
 router.get('/home', authMiddleware, (req, res) => {
-    res.render("inside/homepage");
+    const userInfo = req.userInfo;
+    res.render("inside/homepage", {userInfo});
 })
 
 router.post('/join', authMiddleware, professionalMiddleware, joinFunction)
