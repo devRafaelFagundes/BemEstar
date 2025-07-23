@@ -1,0 +1,62 @@
+#personalInfo-content {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  margin: 20px auto;
+  max-width: 440px;
+  box-shadow: 0 0 10px rgba(0, 100, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  border: 2px solid #c6e7c6;
+}
+
+#personalInfo-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+input[type="text"],
+input[type="number"] {
+  padding: 8px;
+  border: 1px solid #a5d6a7;
+  border-radius: 4px;
+  background-color: #f1fdf2;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #66bb6a;
+  outline: none;
+  background-color: #e8f5e9;
+}
+
+button#savePersonalInfo {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background-color: #43a047;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button#savePersonalInfo:hover {
+  background-color: #388e3c;
+}
