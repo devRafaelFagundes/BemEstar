@@ -61,7 +61,7 @@ async function salvarAlteracoes(event) {
 //   } catch (err) {
 //     alert(err.message);
 //   }
-// }
+}
 
 // form.addEventListener('submit', salvarAlteracoes);
-renderPersonalInfo();
+// renderPersonalInfo();

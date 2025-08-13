@@ -1,41 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/homepage.css">
-    <title>Home Page</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="/css/homepage.css" />
+  <title>BemEstar+</title>
 </head>
 <body>
-    <header>
-        <h1>BemEstar+</h1>
-        <nav>
-            <ul>
-                <li>nav1</li>
-                <li>nav2</li>
-                <li>nav3</li>
-            </ul>
-            <!-- use mediaquerie to adapt to smaller sized windows -->
-        </nav>
-    </header>
-    <main>
-        <div id="information">
-            <h2>Você é o seu bem estar!</h2>
-            <div class="container">
-                <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores doloremque delectus nihil perspiciatis blanditiis dolore, voluptates deserunt nemo doloribus molestias, repellat quo possimus distinctio fugit, consectetur error odio. Quas, velit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptate, commodi. Nesciunt beatae doloribus quas, quia, modi nemo, quam vel ex error suscipit fugit! Magnam rem asperiores nam ab quaerat veritatis! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellendus pariatur suscipit molestias sequi eaque soluta aliquam at mollitia ratione dolorum ducimus, architecto quaerat nobis quas vero totam hic nostrum fugiat!
-                In tempora blanditiis mollitia dolores eligendi rem culpa ipsum itaque voluptas, nesciunt totam ratione quaerat nam illo quam numquam at necessitatibus inventore
-            </p>
-            <div class="buttonEffectContainer">
-                <a href="/start">STARTING NOW</a>
-            </div>
-            </div>
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a class="logo" href="/">BemEstar<span class="plus">+</span></a>
+      <nav class="nav" aria-label="Navegação principal" id="siteNav">
+        <ul>
+          <li><a href="#information">Sobre</a></li>
+          <li><a href="#features">Recursos</a></li>
+          <li><a href="#contact">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <a class="btn btn-ghost" href="#contact">Contato</a>
+        <button id="menuToggle" aria-label="Abrir menu" class="menu-toggle" aria-expanded="false">
+          <span class="burger"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="information">
+      <div class="hero-card">
+        <div class="hero-content">
+          <h1>Você é o seu bem-estar</h1>
+          <p>
+            Pequenas mudanças geram grandes resultados. Acompanhe hábitos, aprenda práticas de
+            autocuidado e transforme seu dia a dia com atenção e consistência.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="/start">Começar agora</a>
+            <a class="btn btn-outline" href="#features">Ver recursos</a>
+          </div>
         </div>
-        <a href="">Want to contact me?</a>
-    </main>
-    <footer>
-        basic information, such as how to contact me and the github link
-    </footer>
-    <script src="js/homepageScript.js"></script>
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 200 200" class="blob">
+            <defs>
+              <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#3aa76d" />
+                <stop offset="1" stop-color="#2a9d8f" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#g)" d="M45.3,-60.6C57.1,-51.7,66.6,-41.1,69.7,-28.9C72.9,-16.7,69.6,-3.9,64.7,7.6C59.8,19,53.3,28.9,44.9,40.4C36.5,51.9,26.3,65,13.6,71.2C0.9,77.4,-14.3,76.6,-27.3,70.1C-40.3,63.6,-51.2,51.5,-58.8,38.6C-66.4,25.8,-70.6,12.9,-70.8,-0.6C-71,-14,-67.1,-28,-57.9,-38.9C-48.7,-49.8,-34.2,-57.6,-19.6,-64.1C-4.9,-70.6,10.1,-75.8,24.9,-74.6C39.7,-73.4,53.5,-65.6,45.3,-60.6Z" transform="translate(100 100)" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <div class="feature">
+        <h3>Rastreie hábitos</h3>
+        <p>Registre pequenas conquistas diárias para ver progresso ao longo do tempo.</p>
+      </div>
+      <div class="feature">
+        <h3>Conteúdo prático</h3>
+        <p>Dicas simples e aplicáveis para melhorar sono, alimentação e foco.</p>
+      </div>
+      <div class="feature">
+        <h3>Integração</h3>
+        <p>Sincronize com ferramentas e exporte seu histórico quando quiser.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="contact-inner">
+        <h2>Quer entrar em contato?</h2>
+        <p>Me mande um e-mail ou confira meu GitHub.</p>
+        <div class="contact-actions">
+          <a class="btn btn-secondary" href="mailto:seuemail@dominio.com">Enviar e-mail</a>
+          <a class="btn btn-ghost" href="https://github.com/seu-usuario" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Rafael Fagundes</div>
+      <div class="footer-links">
+        <a href="https://github.com/seu-usuario" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:seuemail@dominio.com">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/homepageScript.js"></script>
 </body>
 </html>
