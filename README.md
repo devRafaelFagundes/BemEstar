@@ -1,6 +1,8 @@
 # BemEstar
 
-BemEstar é uma API backend desenvolvida para servir de base para uma plataforma de promoção à saúde, atuando como ponte entre usuários e profissionais da área. O foco é fornecer endpoints robustos e escaláveis para autenticação, cadastro, gerenciamento de usuários, profissionais e funcionalidades relacionadas ao bem-estar físico e mental.
+![Homepage](./public/img/readmeImages/homepage.png)
+
+BemEstar é uma API backend (com front simples para teste) desenvolvida para servir de base para uma plataforma de promoção à saúde, atuando como ponte entre usuários e profissionais da área. O foco é fornecer endpoints robustos e escaláveis para autenticação, cadastro, gerenciamento de usuários, profissionais e funcionalidades relacionadas ao bem-estar físico e mental.
 
 ## Estrutura do Projeto
 
