@@ -8,8 +8,8 @@ router.get('/home', (req, res)=>{
 router.get("/start", (req, res)=>{
     res.render("outside/auths/register");
 })
-router.get('/protectedTest', authMiddleware, (req, res)=>{
-    res.send("this is protected");
-})
+// router.get('/protectedTest', authMiddleware, (req, res)=>{
+//     res.send("this is protected");
+// })
 
 module.exports = router;

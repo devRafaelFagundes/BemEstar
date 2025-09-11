@@ -20,7 +20,7 @@ const findMeetings = async () => {
         const filter = ''
         //add parameters and user as query for the fetching (REMEMBER USING URLSEARCHPARAMS)
 
-        const res = await fetch('/api/meetings', {
+        const res = await fetch('/meetings', {
             method: "GET",
             credentials : "include"
         })

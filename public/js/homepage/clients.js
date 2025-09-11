@@ -1,6 +1,6 @@
 const clientsSpace = document.getElementById('clients')
 const getClients = async () => {
-    const res = await fetch('/api/clients', {
+    const res = await fetch('/clients', {
         method : 'GET',
         headers : {
             'Content-Type' : 'application/json'
