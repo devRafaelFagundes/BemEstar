@@ -63,4 +63,20 @@ const updateMeeting  = async (req, res, next) => {
 
 //delete meeting
 
-module.exports = {createMeeting, getMeetings}
+
+const doneMeeting = async (req, res, next) => {
+    const {meetingId} = req.body;
+    const meetingToUpdate = await Meeting.findOne({
+        _id : meetingId
+    })
+    if (!meetingToUpdate) {
+        const err = new Error('Meeting not found')
+        err.statusCode = 404;
+        return next(err)
+    }
+    meeting.done = true
+    await meeting.save()
+
+}
+
+module.exports = {createMeeting, getMeetings, doneMeeting}

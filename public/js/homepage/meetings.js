@@ -2,6 +2,7 @@ import { genBlurElement, removeBlurScreen, showOnScreen} from "./utils.js"
 const createMeeting = document.getElementById("add-meeting")
 const createScreen = document.getElementById("meeting-post")
 const meetingSpace = document.getElementById("meetings")
+const createMeetingButton = document.getElementById("createMeetingButton")
 
 createMeeting.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -46,3 +47,5 @@ const findMeetings = async () => {
     }
 }
 findMeetings()
+
+

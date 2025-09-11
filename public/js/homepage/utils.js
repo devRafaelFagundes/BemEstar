@@ -55,3 +55,14 @@ export async function hideFromClass(className) {
         item.style.display = 'none'
     })
 }
+
+export async function getClients (){
+    const res = await fetch('/clients', {
+        method : 'GET',
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    })
+    const data = await res.json()
+    return data.message;
+}

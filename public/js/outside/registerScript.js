@@ -55,7 +55,7 @@ loginButton.addEventListener('click', async (e) => {
     })
     const data = await res.json();
     if (data.success) {
-        window.location.href = '/app/home'
+        window.location.href = '/home'
     }
     else{
         loginFeedback.innerText = data.message

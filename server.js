@@ -12,6 +12,7 @@ const appRouter = require("./routes/appProfessional")
 // const apiRouter = require("./routes/apisRoutes")
 const clientsRouter = require('./routes/clientsRoutes')
 const meetingsRouter = require('./routes/meetingsRoutes')
+const renderRouter = require('./routes/renderRoutes')
 
 const connectToDb = require("./database/db");
 const cookieParser = require("cookie-parser");
@@ -33,6 +34,7 @@ app.set("views", path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routers
+app.use('/', renderRouter)
 app.use('/auth', authRouter)
 app.use('/app', appRouter);
 app.use('', homeRouter);

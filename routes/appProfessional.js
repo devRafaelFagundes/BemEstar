@@ -5,10 +5,10 @@ const joinFunction = require("../controllers/joinController")
 const router = express.Router();
 const {clientsPersonal} = require('../controllers/clientsController')
 
-router.get('/home', authMiddleware, (req, res) => {
-    const userInfo = req.userInfo;
-    res.render("inside/homepage", {userInfo});
-})
+// router.get('/home', authMiddleware, (req, res) => {
+//     const userInfo = req.userInfo;
+//     res.render("inside/homepage", {userInfo});
+// })
 
 router.post('/join', authMiddleware, professionalMiddleware, joinFunction)
 
