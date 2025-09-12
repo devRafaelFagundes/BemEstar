@@ -1,9 +1,10 @@
 const clientsSpace = document.getElementById('clients')
-import { getClients } from "./utils"
+import { getClients } from "./utils.js"
 
 const renderClients = async () => {
 
     const clients = await getClients()
+    console.log(clients)
     if(Array.isArray(clients)) {
         clients.forEach(client => {
             const eachClient = document.createElement('a')
