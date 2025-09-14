@@ -41,12 +41,10 @@ const findMeetings = async () => {
             credentials : "include"
         })
         const response = await res.json();
-        console.log(response)
-
-        const allMeetings = response.message;
-        console.log(allMeetings)
+        const allMeetings = response.data;
 
         if(!Array.isArray(allMeetings)) {
+            console.log('Entered wrong if')
             const newMeeting = document.createElement("li")
             newMeeting.innerText = allMeetings;
             meetingSpace.appendChild(newMeeting)
@@ -75,6 +73,7 @@ async function renderClientsToAssignMeeting() {
         clients.forEach(client => {
             console.log(client)
             const clientContainer = document.createElement('button')
+            clientContainer.type = 'button'
             clientContainer.innerText = client.username
             clientContainer.style.backgroundColor = 'gray'
             clientContainer.style.color = 'white'
@@ -102,5 +101,30 @@ clientsToAssignMeeting.addEventListener('click', (e) => {
             selectedClients = selectedClients.filter(client => client.username != clientObject.username)
             console.log(selectedClients)
         }
+    }
+})
+createMeetingButton.addEventListener('click', async (e) => {
+    const topic = document.getElementById('topic')
+    const link = document.getElementById('link')
+    const date = document.getElementById('date')
+    const clientsIds = selectedClients.map(client => client._id)
+    const res = await fetch('/meetings/create-meeting', {
+        method : 'POST',
+        headers : {
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+            topic : topic.value,
+            link : link.value,
+            date : date.value,
+            clients : clientsIds
+        })
+    })
+    const data = await res.json();
+    if(data.success) {
+        console.log('meeting created')
+    }
+    else {
+        console.log(data)
     }
 })

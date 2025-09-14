@@ -38,11 +38,11 @@ const createMeeting = async (req, res, next) => {
             const err = new Error("Can not create a meeting operation without any client")
             return next(err)
         }
+        const data = new Date(date)
         const newMeeting = await Meeting.create({
             topic,
             link,
-            date,
-            done,
+            date : data,
             clients,
             professional : userId
         })
@@ -52,6 +52,7 @@ const createMeeting = async (req, res, next) => {
             message : "Meeting create Successfully"
         })
     } catch (err) {
+        console.log(err)
         next(err)
     }
 }
