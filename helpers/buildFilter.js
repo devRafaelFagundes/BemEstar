@@ -6,7 +6,7 @@ const buildFilter = (query, role, userId) => {
         filter.professional = userId;
     }
     else {
-        filter.clients = userId;
+        filter.clients = {$in : [userId]};
     }
     //creation of the meeting
     if(query.made_after || query.made_before) {

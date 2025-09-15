@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/homepage/meetings.css" />
     <link rel="stylesheet" href="/css/homepage/outros.css" />
     <link rel="stylesheet" href="/css/homepage/clients.css" />
-    <link rel="stylesheet" href="/css/homepage/personal.css">
+    <link rel="stylesheet" href="/css/homepage/personal.css" />
     <title>BemEstar+</title>
   </head>
   <body>
@@ -36,84 +36,75 @@
     </aside>
     <main>
       <div id="reunioes-content" class="content">
-        Meetings here
-        <ul id="meetings"></ul>
-        <!-- when button is clicked -->
+        <header class="meetings-top">
+          <h2>Reuniões</h2>
+          <div class="meetings-controls">
+            <button id="refreshMeetings" class="btn">Atualizar</button>
+            <div id="add-meeting" class="profOnly fab">+</div>
+          </div>
+        </header>
+        <section id="meetingsListWrap">
+          <ul id="meetings" aria-live="polite"></ul>
+          <div id="no-meetings" class="no-data" hidden>Nenhuma reunião encontrada</div>
+        </section>
         <div id="meeting-post">
-          <form action="">
-            <label for="topic">Tópico</label>
-            <input type="text" name="topic" id="topic"/>
-            <label for="date">Data</label>
-            <input type="date" name="date"  id="date" required/>
-            <!-- <div>Clientes</div> -->
-            <label for="link">Link</label>
-            <input type="text" name="link" id="link">
-            <p>Clientes</p>
-            <div id="clientsToAssignMeeting">
-              
+          <form id="create-meeting-form" autocomplete="off">
+            <div class="form-col">
+              <label for="topic">Tópico</label>
+              <input type="text" name="topic" id="topic" />
             </div>
-            <button type="button" id="createMeetingButton">Criar</button>
-            <!-- use fetch -->
+            <div class="form-row">
+              <div class="form-col">
+                <label for="date">Data</label>
+                <input type="date" name="date" id="date" required />
+              </div>
+              <div class="form-col">
+                <label for="link">Link</label>
+                <input type="url" name="link" id="link" />
+              </div>
+            </div>
+            <p class="clients-label">Clientes</p>
+            <div id="clientsToAssignMeeting" class="clients-list"></div>
+            <div class="actions">
+              <button type="button" id="createMeetingButton" class="btn primary">Criar</button>
+              <button type="button" id="cancelCreateMeeting" class="btn">Cancelar</button>
+            </div>
           </form>
         </div>
-        <!-- end -->
-        <div id="add-meeting" class="profOnly">+</div>
       </div>
       <div id="clientes-content" class="content profOnly">
-        Clients Info Here
         <div>
           <ul id="clients"></ul>
         </div>
       </div>
-      <div id="conversas-content" class="content" class="demo">Chats</div>
+      <div id="conversas-content" class="content demo">Chats</div>
       <div id="personalInfo-content" class="content">
         <form id="personalInfo-form">
           <h2>Informações Pessoais</h2>
-
           <div class="form-group">
             <label for="weight">Peso (kg):</label>
-            <input
-              type="number"
-              id="weight"
-              name="weight"
-              step="0.1"
-              required
-            />
+            <input type="number" id="weight" name="weight" step="0.1" required />
           </div>
-
           <div class="form-group">
             <label for="height">Altura (cm):</label>
-            <input
-              type="number"
-              id="height"
-              name="height"
-              step="0.1"
-              required
-            />
+            <input type="number" id="height" name="height" step="0.1" required />
           </div>
-
           <div class="form-group">
             <label for="bodyfat">Gordura Corporal (%):</label>
             <input type="number" id="bodyfat" name="bodyfat" step="0.1" />
           </div>
-
           <div class="form-group">
             <label for="goal">Objetivo:</label>
             <input type="text" id="goal" name="goal" />
           </div>
-
           <div class="form-group">
-            <label for="medicalCondition"
-              >Condições Médicas (separe por vírgulas):</label
-            >
+            <label for="medicalCondition">Condições Médicas (separe por vírgulas):</label>
             <input type="text" id="medicalCondition" name="medicalCondition" />
           </div>
-
           <button type="submit" id="savePersonalInfo">Salvar Alterações</button>
         </form>
       </div>
       <div id="outros-content" class="content">
-        Outros
         <div id="join" class="profOnly">
           Associar:
           <form>
@@ -126,9 +117,7 @@
         </div>
       </div>
     </main>
-
     <footer>footer</footer>
-
     <script id="server-data" type="application/json">
       <%- JSON.stringify(userInfo || {}) %>
     </script>

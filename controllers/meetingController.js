@@ -9,12 +9,20 @@ const getMeetings = async (req, res, next) => {
         const role = req.userInfo.role;
         const userId = req.userInfo.userId
         const filter = await buildFilter(req.query, role, userId)
-        const data = await Meeting.find(filter);
+        const data = await Meeting.find(filter).populate({path: "clients", select: "username"}).populate({path: "professional", select: "username"});
         if(data.length == 0) {
             return res.status(404).json({
                 success: false,
                 message : 'Nenhuma reunião encontrada'
             })
+        
+        }
+        //update meetings if date expired
+        for(meeting of data) {
+            if(meeting.date > Date.now()) {
+                meeting.done = true;
+                await meeting.save()
+            }
         }
         return res.status(200).json({
             success: true,
