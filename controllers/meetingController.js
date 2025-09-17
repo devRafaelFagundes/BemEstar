@@ -9,7 +9,11 @@ const getMeetings = async (req, res, next) => {
         const role = req.userInfo.role;
         const userId = req.userInfo.userId
         const filter = await buildFilter(req.query, role, userId)
-        const data = await Meeting.find(filter).populate({path: "clients", select: "username"}).populate({path: "professional", select: "username"});
+        const data = await Meeting.find({
+            ...filter
+        }).populate({path: "clients", select: "username"}).populate({path: "professional", select: "username"}).sort({
+            date: 1
+        });
         if(data.length == 0) {
             return res.status(404).json({
                 success: false,
@@ -19,8 +23,12 @@ const getMeetings = async (req, res, next) => {
         }
         //update meetings if date expired
         for(meeting of data) {
-            if(meeting.date > Date.now()) {
+            if(meeting.date < Date.now()) {
                 meeting.done = true;
+                await meeting.save()
+            }
+            else {
+                meeting.done = false;
                 await meeting.save()
             }
         }

@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
             height : Number,
             bodyfat : Number,
             goal : String,
-            medicalCondition : [String]
+            medicalCondition : String
     },
     professional : {
         type : mongoose.Schema.Types.ObjectId,

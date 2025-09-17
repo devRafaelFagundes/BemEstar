@@ -94,7 +94,7 @@ async function findMeetings() {
   try {
     meetingSpace.innerHTML = "";
     noMeetings.hidden = true;
-    const res = await fetch("/meetings", {
+    const res = await fetch("/meetings?done=false", {
       method: "GET",
       credentials: "include"
     });

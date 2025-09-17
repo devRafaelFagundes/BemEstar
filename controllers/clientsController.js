@@ -37,15 +37,12 @@ const getClients = async (req, res, next) => {
 
 const clientsPersonal = async (req, res, next) => {
     try {
-        const TrueUserId = req.userInfo.userId;
+        const userId = req.userInfo.userId;
         const userRole = req.userInfo.role;
 
-        //well, i need to access this information searching in the database
-        
-        const userId = new mongoose.Types.ObjectId(req.params.id);
 
         if(userRole === 'professional') {
-            const professional = await User.findById(TrueUserId);
+            const professional = await User.findById(userId);
             console.log(professional.clientes)
             if(!professional.clientes.includes(userId.toString())) {
                 return res.status(400).json({
@@ -54,24 +51,17 @@ const clientsPersonal = async (req, res, next) => {
                 })
             }
         }
-        if(userRole === 'client') {
-            if(userId.toString() !== TrueUserId.toString()) {
-                return res.status(400).json({
-                    success : false,
-                    message : 'Não pode acessar informações pessoais de outro usuário'
-                })
-            }
-        }       
+        
         const user = await User.aggregate([
             {
                 $match : {
-                    _id : userId
+                    _id : new mongoose.Types.ObjectId(userId)
                 }
             },
             {
                 $project : {
                     "username": 1,
-                    "personalInfo": 1
+                    "personalInfo": 1,
                 }
             }
         ])
@@ -82,11 +72,32 @@ const clientsPersonal = async (req, res, next) => {
         }
         return res.status(200).json({
             success : true,
-            message : user
+            message : user[0]
         })
     } catch (error) {
         next(error)
     }
 }
 
-module.exports = {getClients, clientsPersonal}
+const updatePersonal = async (req, res, next) => {
+    try {
+        const allowedFields = ["weight", "bodyfat", "goal", "height", "medicalCondition"]
+        let changes = {}
+        for(field of allowedFields) {
+            if(req.body[field] !== undefined) {
+                changes[field] = req.body[field]
+            }
+        }
+        const userChanging = await User.findById(req.userInfo.userId);
+        Object.assign(userChanging.personalInfo, changes)
+        await userChanging.save()
+        return res.json({
+            success : true,
+            message: 'Client updated successfully'
+        })
+    } catch (error) {
+        return next(error)
+    }
+}
+
+module.exports = {getClients, clientsPersonal, updatePersonal}

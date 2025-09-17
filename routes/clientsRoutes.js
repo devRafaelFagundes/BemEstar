@@ -6,8 +6,12 @@ const professionalMiddleware = require("../middlewares/professionalMiddleware")
 const clientsRouter = express.Router()
 
 
-const {getClients} = require('../controllers/clientsController')
+const {getClients, clientsPersonal, updatePersonal} = require('../controllers/clientsController')
 
 clientsRouter.get('/', authMiddleware, professionalMiddleware, getClients)
+
+clientsRouter.get('/personal', authMiddleware, clientsPersonal)
+
+clientsRouter.post('/personal/update', authMiddleware, updatePersonal)
 
 module.exports = clientsRouter;
