@@ -9,6 +9,9 @@ const cancelCreateMeeting = document.getElementById("cancelCreateMeeting");
 const refreshMeetings = document.getElementById("refreshMeetings");
 const noMeetings = document.getElementById("no-meetings");
 
+
+
+
 let globalClients = [];
 let selectedClients = [];
 
@@ -135,7 +138,14 @@ async function findMeetings() {
           </footer>
         </article>
       `;
+      const deleteBtn = document.createElement("button");
+      deleteBtn.innerText = "Deletar";
+      deleteBtn.addEventListener("click", () => deleteMeeting(meeting._id));
+
+      const badgeContainer = li.querySelector('.meeting-badges')
+      badgeContainer.appendChild(deleteBtn)
       meetingSpace.appendChild(li);
+
     });
   } catch (err) {
     meetingSpace.innerHTML = `<li class="error">Erro ao carregar reuniões</li>`;
@@ -204,3 +214,18 @@ createMeetingButton.addEventListener("click", async () => {
     findMeetings();
   }
 });
+
+const deleteMeeting = async (meetingId) => {
+  const data  = await fetch(`/meetings/delete/${meetingId}`, {
+    method: 'DELETE',
+    credentials: 'include'
+  })
+  const res = await data.json()
+  if(res.success) {
+    alert('meeting deleted successfully')
+  }
+  else {
+    alert('something went wrong')
+    console.log("Meeting not deleteed:", res)
+  }
+}

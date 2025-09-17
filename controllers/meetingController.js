@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const Meeting = require("../models/meetingSchema")
-const buildFilter = require("../helpers/buildFilter")
+const buildFilter = require("../helpers/buildFilter");
+const { findByIdAndDelete } = require("../models/userSchema");
 //only use with authMiddleware and professionalMiddleware
 
 //get meetings (PUBLIC QUERY)
@@ -93,7 +94,35 @@ const doneMeeting = async (req, res, next) => {
     }
     meeting.done = true
     await meeting.save()
-
 }
 
-module.exports = {createMeeting, getMeetings, doneMeeting}
+const deleteMeeting = async (req, res, next) => {
+    try {
+        const professionalRequesting = req.userInfo.userId;
+        const meetingId = req.params.id
+        const matchMeeting = await Meeting.findOne({
+            _id: new mongoose.Types.ObjectId(meetingId)
+        });
+        if(!matchMeeting) {
+            const error = new Error('Meeting not found')
+            error.statusCode = 404
+            return next(error)
+        }
+        if(!matchMeeting.professional.equals(professionalRequesting)) {
+            console.log('Comparando: ', matchMeeting.professional, professionalRequesting)
+            const error = new Error('Can not delete meetings not created by you')
+            error.statusCode = 400;
+            return next(error)
+        }
+        
+        const deletedMeeting = await Meeting.findByIdAndDelete(meetingId);
+        res.json({
+            success: true,
+            message: 'Meeting deleted successfully'
+        })
+    } catch (error) {
+        return next(error)
+    }
+}
+
+module.exports = {createMeeting, getMeetings, doneMeeting, deleteMeeting}

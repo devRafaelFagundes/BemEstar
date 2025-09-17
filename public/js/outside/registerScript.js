@@ -54,6 +54,7 @@ loginButton.addEventListener('click', async (e) => {
         })
     })
     const data = await res.json();
+    console.log(data)
     if (data.success) {
         window.location.href = '/home'
     }
