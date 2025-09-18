@@ -1,5 +1,6 @@
 const express = require('express')
 const authMiddleware = require("../middlewares/authMiddleware")
+const professionalMiddleware = require('../middlewares/professionalMiddleware')
 
 const renderRouter = express.Router();
 
@@ -15,5 +16,8 @@ renderRouter.get('/', (req, res)=>{
 renderRouter.get("/start", (req, res)=>{
     res.render("outside/auths/register");
 })
+
+
+
 
 module.exports = renderRouter;

@@ -10,7 +10,7 @@ const {getClients, clientsPersonal, updatePersonal} = require('../controllers/cl
 
 clientsRouter.get('/', authMiddleware, professionalMiddleware, getClients)
 
-clientsRouter.get('/personal', authMiddleware, clientsPersonal)
+clientsRouter.get('/personal/:id?', authMiddleware, clientsPersonal)
 
 clientsRouter.post('/personal/update', authMiddleware, updatePersonal)
 

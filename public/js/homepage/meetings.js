@@ -140,6 +140,8 @@ async function findMeetings() {
       `;
       const deleteBtn = document.createElement("button");
       deleteBtn.innerText = "Deletar";
+      deleteBtn.classList.add('badge-pending')
+      deleteBtn.classList.add('badge')
       deleteBtn.addEventListener("click", () => deleteMeeting(meeting._id));
 
       const badgeContainer = li.querySelector('.meeting-badges')

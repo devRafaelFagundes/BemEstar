@@ -37,19 +37,49 @@ const getClients = async (req, res, next) => {
 
 const clientsPersonal = async (req, res, next) => {
     try {
+        const passedUserId = req.params.id
         const userId = req.userInfo.userId;
         const userRole = req.userInfo.role;
-
+        
 
         if(userRole === 'professional') {
-            const professional = await User.findById(userId);
-            console.log(professional.clientes)
-            if(!professional.clientes.includes(userId.toString())) {
-                return res.status(400).json({
-                    success : false,
-                    message : 'Não pode acessar esse usuário'
-                })
+            if(!passedUserId) {
+                const error = new Error('Need to inform the user Id')
+                error.statusCode = 400
+                return next(error)
             }
+
+            const userToGetInfo = await User.aggregate([
+                {
+                    $match : {
+                        _id: new mongoose.Types.ObjectId(passedUserId)
+                    }
+                },
+                {
+                    $project : {
+                        "username" : 1,
+                        "personalInfo": 1,
+                        "email": 1
+                    }
+                }
+            ])
+
+            if(!userToGetInfo || userToGetInfo.length === 0) {
+                const error = new Error('User not found')
+                error.statusCode = 404
+                return next(error)
+            }
+            const professional = await User.findById(userId)
+            if(!professional.clientes.some(id => id.toString() === passedUserId)) {
+                const error = new Error('Can not access user not afilliated')
+                error.statusCode = 400
+                return next(error)
+            }
+
+            return res.json({
+                success: true,
+                message: userToGetInfo[0]
+            })
         }
         
         const user = await User.aggregate([
@@ -61,6 +91,7 @@ const clientsPersonal = async (req, res, next) => {
             {
                 $project : {
                     "username": 1,
+                    "email": 1,
                     "personalInfo": 1,
                 }
             }
