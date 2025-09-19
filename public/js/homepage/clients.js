@@ -8,7 +8,7 @@ const renderClients = async () => {
     if(Array.isArray(clients)) {
         clients.forEach(client => {
             const eachClient = document.createElement('a')
-            eachClient.href = `/clients/${client._id}`
+            eachClient.href = `/info/${client._id}`
             eachClient.innerText = client.username
             clientsSpace.append(eachClient)
             //client._id is available too

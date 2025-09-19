@@ -17,7 +17,9 @@ renderRouter.get("/start", (req, res)=>{
     res.render("outside/auths/register");
 })
 
-
+renderRouter.get("/info/:id", (req, res) => {
+    res.render("inside/userInfo")
+})
 
 
 module.exports = renderRouter;

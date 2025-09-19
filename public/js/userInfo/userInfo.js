@@ -1,16 +1,18 @@
 const url = window.location.pathname;
-const separatedURL = url.split('/')
-const idUser = separatedURL[2];
-
-const fetchAllUserInfo = async () => {
-    const response = await fetch('/app/', {
-        method : 'GET',
-        headers : {
-            'Content-Type' : 'application/json'
-        }
+const infoArray = url.split('/')
+const userId = infoArray[2];
+const fetchUserInfo = async (id) => {
+    const data = await fetch(`/clients/${id}`, {
+        credentials: 'include'
     })
-    const data = await response.json()
-    console.log(data)
-}
+    const res = await data.json();
+    console.log(res)
+    if(res.success) {
+        alert('informações puxadas com sucesso')
+    }
+    else {
+        alert('deu ruim ao puxar as informações')
+    }
+} 
 
-fetchAllUserInfo();
+fetchUserInfo(userId)
