@@ -124,4 +124,8 @@ const changePassword = async (req, res, next) => {
         {new : true}
     ) 
 }
-module.exports = {register, logIn, changePassword}
+
+const loggout = async (req, res, next) => {
+
+}
+module.exports = {register, logIn, changePassword, loggout}

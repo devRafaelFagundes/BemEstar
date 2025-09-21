@@ -20,18 +20,19 @@ const setAvatar = (username) => {
 const formatMaybe = (value, unit = '') =>
   (value === undefined || value === null || value === '' ? '—' : `${value}${unit}`);
 
-const renderMedical = (medicalArr = []) => {
+const renderMedical = (medicalStr) => {
   const wrap = $('#medical');
   if (!wrap) return;
   wrap.innerHTML = '';
-  if (!Array.isArray(medicalArr) || medicalArr.length === 0) {
+  const medicalArray = medicalStr?.split(',').map(s => s.trim()).filter(Boolean)
+  if (!Array.isArray(medicalArray) || medicalArray.length === 0) {
     const p = document.createElement('p');
     p.className = 'muted';
     p.textContent = 'Nenhuma condição registrada';
     wrap.appendChild(p);
     return;
   }
-  medicalArr.forEach((m) => {
+  medicalArray.forEach((m) => {
     const pill = document.createElement('span');
     pill.className = 'pill';
     pill.textContent = typeof m === 'string' ? m : (m.name || JSON.stringify(m));

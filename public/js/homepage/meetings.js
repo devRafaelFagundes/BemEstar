@@ -97,7 +97,7 @@ async function findMeetings() {
   try {
     meetingSpace.innerHTML = "";
     noMeetings.hidden = true;
-    const res = await fetch("/meetings?done=false", {
+    const res = await fetch(`/meetings`, {
       method: "GET",
       credentials: "include"
     });
@@ -111,7 +111,7 @@ async function findMeetings() {
       const li = document.createElement("li");
       li.className = "meeting-item";
       const topic = escapeHTML(meeting.topic || "Sem título");
-      const date = formatDate(meeting.date);
+      const date = formatDateTime(meeting.date);
       const createdAt = formatDateTime(meeting.createdAt);
       const link = meeting.link ? `<a href="${escapeHTML(meeting.link)}" target="_blank" rel="noopener">${escapeHTML(meeting.link)}</a>` : "—";
       const clientsField = renderClientsField(meeting.clients);
@@ -129,6 +129,7 @@ async function findMeetings() {
           </header>
           <div class="meeting-card-body">
             <div class="field"><strong>Data:</strong> ${date}</div>
+            <div class="field"><strong>Horário:</strong> </div>
             <div class="field"><strong>Link:</strong> ${link}</div>
             <div class="field"><strong>Clientes:</strong> ${clientsField}</div>
             <div class="field"><strong>Profissional:</strong> ${professionalField}</div>

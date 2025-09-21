@@ -79,23 +79,6 @@ const updateMeeting  = async (req, res, next) => {
     //not really, i can simply use fetch do get all the info and already put in the form
 }
 
-//delete meeting
-
-
-const doneMeeting = async (req, res, next) => {
-    const {meetingId} = req.body;
-    const meetingToUpdate = await Meeting.findOne({
-        _id : meetingId
-    })
-    if (!meetingToUpdate) {
-        const err = new Error('Meeting not found')
-        err.statusCode = 404;
-        return next(err)
-    }
-    meeting.done = true
-    await meeting.save()
-}
-
 const deleteMeeting = async (req, res, next) => {
     try {
         const professionalRequesting = req.userInfo.userId;
@@ -125,4 +108,4 @@ const deleteMeeting = async (req, res, next) => {
     }
 }
 
-module.exports = {createMeeting, getMeetings, doneMeeting, deleteMeeting}
+module.exports = {createMeeting, getMeetings, deleteMeeting}

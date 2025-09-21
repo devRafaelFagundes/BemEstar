@@ -32,3 +32,8 @@ joinUserButton.addEventListener('click', (e) => {
     console.log(username, userPassword)
     fetchJoin(username, userPassword)
 })
+
+const loggout = document.getElementById('loggout')
+loggout.addEventListener('click',  (e) => {
+    
+})
