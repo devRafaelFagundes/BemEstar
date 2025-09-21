@@ -21,6 +21,7 @@ else {
 
 const button = document.getElementById("menu");
 const sideBar = document.getElementById("sidebar")
+sideBar.style.zIndex = '1000'
 button.addEventListener("click", (e) => {
     sideBar.classList.toggle("show")
 })
@@ -31,6 +32,7 @@ const contents = document.querySelectorAll(".content")
 contents[0].classList.add("display");
 selectors.forEach((selected) => {
     selected.addEventListener("click", e => {
+        sideBar.classList.remove("show")
         let indice = 0
         for (let i = 0; i < selectors.length; i++) {
             if(selectors[i] === selected) {

@@ -60,7 +60,6 @@ export async function renderPersonalInfo() {
     const data = await fetchUserPersonalInfo();
     preencherFormulario(data);
   } catch (err) {
-    alert(err.message);
     console.log('erro de renderPersonalInfo: ', err.message)
   }
 }

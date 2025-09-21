@@ -66,3 +66,22 @@ export async function getClients (){
     const data = await res.json()
     return data.message;
 }
+
+export function genScreen(positionX, positionY, width, height) {
+    const screen = document.createElement('div')
+    screen.style.position = 'fixed'
+    screen.style.left = `${positionX}%`
+    screen.style.top = `${positionY}%`
+    screen.style.height = `${height}px`
+    screen.style.width = `${width}px`
+    return screen
+}
+
+export function removeWhenNotClicked(elementId) {
+    const element = document.getElementById(elementId)
+    document.addEventListener('click', (e) => {
+        if(!(e.target === element) && !element.contains(e.target)) {
+            element.remove()
+        }
+    })
+}

@@ -1,4 +1,8 @@
-import { genBlurElement, removeBlurScreen, showOnScreen} from "./utils.js"
+import { genBlurElement, removeBlurScreen, showOnScreen, genScreen, removeWhenNotClicked} from "./utils.js"
+
+document.addEventListener('click', (e) => {
+    removeWhenNotClicked('loggoutScreen')
+})
 
 const joinUserButton = document.getElementById('joinUser')
 
@@ -34,6 +38,58 @@ joinUserButton.addEventListener('click', (e) => {
 })
 
 const loggout = document.getElementById('loggout')
+
 loggout.addEventListener('click',  (e) => {
+    const existsLoggoutScreen = document.getElementById('loggoutScreen')
+    if(!existsLoggoutScreen) {
+        const body = document.querySelector('body')
     
+        const loggoutDiv = genScreen(77.5, 4, 400, 80)
+        loggoutDiv.id = 'loggoutScreen'
+        //left, top, width, height
+    
+        loggoutDiv.style.backgroundColor = 'lightgray'
+        loggoutDiv.style.borderRadius = '10px'
+        loggoutDiv.style.padding = '5px'
+    
+        const message = document.createElement('p')
+        message.innerText = 'Você quer mesmo deslogar?'
+        message.style.textAlign = 'center'
+        message.style.padding = '5px'
+    
+        const buttonsDiv = document.createElement('div')
+        buttonsDiv.style.display = 'flex'
+        buttonsDiv.style.justifyContent = 'space-around'
+        buttonsDiv.style.marginTop = '10px'
+    
+        const deslogarBtn = document.createElement('button')
+        deslogarBtn.innerText = 'Sim'
+        deslogarBtn.classList.add('loggoutButtons')
+    
+        const cancelarBtn = document.createElement('button')
+        cancelarBtn.innerText = 'Cancelar'
+        cancelarBtn.classList.add('loggoutButtons')
+        cancelarBtn.id = 'cancelDeslogar'
+        
+        buttonsDiv.append(deslogarBtn)
+        buttonsDiv.append(cancelarBtn)
+    
+        loggoutDiv.append(message)
+        loggoutDiv.append(buttonsDiv)
+    
+        body.appendChild(loggoutDiv)
+
+        cancelarBtn.addEventListener('click', (e) => {
+            const loggoutScreen = document.getElementById('loggoutScreen')
+            loggoutScreen.remove()
+        })
+
+        deslogarBtn.addEventListener('click', async (e) => {
+            const deslogar = await fetch('/auth/logout', {
+                credentials: 'include'
+            })
+            window.location.href = '/'
+        })
+    }
 })
+

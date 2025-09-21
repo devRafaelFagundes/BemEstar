@@ -125,7 +125,12 @@ const changePassword = async (req, res, next) => {
     ) 
 }
 
-const loggout = async (req, res, next) => {
-
+const logout = async (req, res, next) => {
+    res.clearCookie('refreshToken')
+    res.clearCookie('token')
+    return res.json({
+        success : true,
+        message : 'Cookies apagados'
+    })
 }
-module.exports = {register, logIn, changePassword, loggout}
+module.exports = {register, logIn, changePassword, logout}
