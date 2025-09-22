@@ -11,9 +11,10 @@ const noMeetings = document.getElementById("no-meetings");
 
 
 
-
 let globalClients = [];
 let selectedClients = [];
+
+
 
 async function addGlobalClientsContent() {
   globalClients = await renderClientsToAssignMeeting();
@@ -95,9 +96,26 @@ function renderClientsField(clients) {
 
 async function findMeetings() {
   try {
+    const url = new URLSearchParams()
+
+    const arrayFilterOptions = ['done', 'date_max', 'date_min']
+    const filteringOptions = document.querySelectorAll('.option input')
+    for (let i = 0; i < filteringOptions.length; i++) {
+      console.log(filteringOptions[i].value)
+      if(filteringOptions[i].value.trim() !== "") {
+        if(filteringOptions[i].type === 'checkbox') {
+          url.set(arrayFilterOptions[i], filteringOptions[i].checked)
+        }
+        else {
+          url.set(arrayFilterOptions[i], filteringOptions[i].value)
+        }
+      }
+      
+    }
     meetingSpace.innerHTML = "";
     noMeetings.hidden = true;
-    const res = await fetch(`/meetings`, {
+    console.log('fetching url: ', `meetings?${url.toString()}`)
+    const res = await fetch(`/meetings?${url.toString()}`, {
       method: "GET",
       credentials: "include"
     });

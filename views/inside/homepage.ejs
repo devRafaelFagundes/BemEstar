@@ -44,6 +44,20 @@
           </div>
         </header>
         <section id="meetingsListWrap">
+          <div id="filterOptions">
+            <div class="option">
+              <label for="done">Concluída: </label>
+              <input type="checkbox" name="done" value="true">
+            </div>
+            <div class="option">
+              <label for="maxDate">Data máxima: </label>
+              <input type="date" name="maxDate">
+            </div>
+            <div class="option">
+              <label for="minDate">Data mínima: </label>
+              <input type="date" name="minDate">
+            </div>
+          </div>
           <ul id="meetings" aria-live="polite"></ul>
           <div id="no-meetings" class="no-data" hidden>Nenhuma reunião encontrada</div>
         </section>

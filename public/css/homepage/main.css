@@ -35,6 +35,8 @@ header {
     top: 0;
     height: 2em;
     align-items: center;
+    /* z-index: 1001 !important; */
+    /* did not work, the header still isnt on the top layer of the page */
 }
 header h1 {
     margin-left: 30px;
@@ -119,6 +121,20 @@ footer {
 .loggoutButtons:hover {
     background-color: black;
     color: white;
+}
+#filterOptions {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0px;
+}
+.option {
+    border-color: green;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 10px;
+    padding: 5px;
+    width: fit-content;
+    
 }
 @media (max-width: 800px) {
     body {
