@@ -13,7 +13,7 @@ const noMeetings = document.getElementById("no-meetings");
 
 let globalClients = [];
 let selectedClients = [];
-
+let refreshedNow
 
 
 async function addGlobalClientsContent() {
@@ -46,7 +46,10 @@ cancelCreateMeeting?.addEventListener("click", async () => {
 });
 
 refreshMeetings?.addEventListener("click", () => {
-  findMeetings();
+  refreshMeetings.disabled = true
+  findMeetings().finally(() => {
+    refreshMeetings.disabled = false
+  })
 });
 
 function escapeHTML(str) {
@@ -54,12 +57,12 @@ function escapeHTML(str) {
   return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-function formatDate(d) {
-  if (!d) return "—";
-  const dt = new Date(d);
-  if (isNaN(dt)) return "—";
-  return dt.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
-}
+// function formatDate(d) {
+//   if (!d) return "—";
+//   const dt = new Date(d);
+//   if (isNaN(dt)) return "—";
+//   return dt.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
+// }
 
 function formatDateTime(d) {
   if (!d) return "—";
