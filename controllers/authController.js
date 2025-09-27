@@ -1,6 +1,7 @@
 require("dotenv").config()
 const crypto = require("crypto")
 const User = require("../models/userSchema")
+const temporaryUser = require('../models/temporaryUserSchema')
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 
@@ -133,4 +134,26 @@ const logout = async (req, res, next) => {
         message : 'Cookies apagados'
     })
 }
-module.exports = {register, logIn, changePassword, logout}
+
+
+const generateTemporaryUser = async (req, res, next) => {
+    try {
+        //validate userInfo 
+        //generate random string
+        //create temporary user
+        //send confirmation email
+    } catch (error) {
+        
+    }
+}
+
+const confirmUser = async (req, res, next) => {
+    //confirm if the string exists in the database of temporaryUsers
+    //create real user
+}
+
+
+//user a lib such as node-cron for cleaning unconfirmed users after a setted time
+
+
+module.exports = {register, logIn, changePassword, logout, confirmUser, generateTemporaryUser}

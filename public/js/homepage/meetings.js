@@ -104,7 +104,6 @@ async function findMeetings() {
     const arrayFilterOptions = ['done', 'date_max', 'date_min']
     const filteringOptions = document.querySelectorAll('.option input')
     for (let i = 0; i < filteringOptions.length; i++) {
-      console.log(filteringOptions[i].value)
       if(filteringOptions[i].value.trim() !== "") {
         if(filteringOptions[i].type === 'checkbox') {
           url.set(arrayFilterOptions[i], filteringOptions[i].checked)
