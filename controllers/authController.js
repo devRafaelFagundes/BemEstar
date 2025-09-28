@@ -4,37 +4,38 @@ const User = require("../models/userSchema")
 const temporaryUser = require('../models/temporaryUserSchema')
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-
+const {sendEmail, formEmailMessage} = require('../helpers/sendEmail')
 const register = async (req, res, next) => {
     try {
-        const {username, password, email, role} = req.body;  
-        console.log(role)      
-        //check if the user already exists
-        const usernameExists = await User.findOne({$or : [{username}, {email}]});
-        if (usernameExists) {        
-            const err = new Error('Username or Email is already taken');
-            err.statusCode = 400;
-            return next(err);
-    }
-
-    //hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    //create user with hashed password
-    const newUser = await User.create({
-        username,
-        password: hashedPassword,
-        email,
-        role
-    })
-
-    if(newUser) {
-        return res.status(200).json({
-            success : true,
-            message : 'User created succesfully'
+        const username = req.body.username
+        const findTemporaryUser = await temporaryUser.findOne({
+            username
         })
-    }
+        const userMidCreated = await User.findOne({
+            username
+        })
+        if(userMidCreated) {
+            const error = new Error('User created while confirmation process was running')
+            error.statusCode = 409
+            return next(error)
+        }
+        if(!findTemporaryUser) {
+            const error =  new Error('User not found')
+            error.statusCode = 404
+            return next(error)
+        }
+        if(!findTemporaryUser.isEmailConfirmed) {
+            const error = new Error('User not validated by email')
+            error.statusCode = 401
+            return next(error)
+        }
+        const newUser = await User.create(req.body)
+        await findTemporaryUser.deleteOne()
+        return res.json({
+            success : true,
+            message : 'User created successfully'
+        })
+
     } catch (error) {
         next(error);
     }
@@ -138,18 +139,79 @@ const logout = async (req, res, next) => {
 
 const generateTemporaryUser = async (req, res, next) => {
     try {
-        //validate userInfo 
-        //generate random string
-        //create temporary user
-        //send confirmation email
+        const {username, password, email, role} = req.body;  
+        const usernameExists = await User.findOne({$or : [{username}, {email}]});
+        if (usernameExists) {        
+            const err = new Error('Username or Email is already taken');
+            err.statusCode = 400;
+            return next(err);
+    }
+        //hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const randomString = crypto.randomBytes(32).toString('hex')
+
+        //create user with hashed password
+        const newUser = await temporaryUser.create({
+            username,
+            password: hashedPassword,
+            email,
+            role,
+            random: randomString
+        })
+        if(!newUser) {
+            const error = new Error('Something went wrong when trying to create the user')
+            error.statusCode = 500
+            return next(error)
+        }
+      
+        //send email
+        const htmlMessage = formEmailMessage('Confirm Bem Estar account', 'Click on the link to validate the account', `http://localhost:3000/auth/confirm/${randomString}`)
+        const send = await sendEmail(email, htmlMessage, `Confirm Bem Estar account by clicking the link: http://localhost:3000/auth/confirm/${randomString}`)
+        if (!send.success) {
+            const error = new Error(send.message)
+            error.statusCode = 500
+            return next(error)
+        }
+
+        return res.json({
+            success : true,
+            message: 'User generated and email sent successfully'
+        })
     } catch (error) {
-        
+        next(error);
     }
 }
 
+
 const confirmUser = async (req, res, next) => {
-    //confirm if the string exists in the database of temporaryUsers
-    //create real user
+    try {
+        const randomString = req.params.random
+        //confirm if the string exists in the database of temporaryUsers
+        const findUserByString = await temporaryUser.findOne({
+            random: randomString
+        })
+        if(!findUserByString) {
+            const error = new Error('Temporary user not found')
+            error.statusCode = 404
+            return next(error)
+        }
+        findUserByString.isEmailConfirmed = true
+        await findUserByString.save()
+
+        const infoObj = findUserByString.toObject()
+
+        req.body = {
+            username: infoObj.username,
+            email: infoObj.email,
+            role: infoObj.role,
+            password: infoObj.password
+        }
+
+        return register(req, res, next)
+    } catch (error) {
+        next(error)
+    }
 }
 
 
