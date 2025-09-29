@@ -1,12 +1,14 @@
-const clientsSpace = document.getElementById('clients')
 import { getClients } from "./utils.js"
+const clientsSpace = document.getElementById('clients')
+const searchInput = document.getElementById('searchClients')
 
-const renderClients = async () => {
+let clients = []
 
-    const clients = await getClients()
-    console.log(clients)
-    if(Array.isArray(clients)) {
-        clients.forEach(client => {
+const renderClients = async (filteredClients) => {
+    clientsSpace.innerHTML = ""
+    let arrayToRender = filteredClients ? filteredClients : clients
+    if(Array.isArray(arrayToRender)) {
+        arrayToRender.forEach(client => {
             const eachClient = document.createElement('a')
             eachClient.href = `/info/${client._id}`
             eachClient.innerText = client.username
@@ -15,8 +17,24 @@ const renderClients = async () => {
         })
     }
     else {
-        clientsSpace.append(clients)
+        clientsSpace.append(arrayToRender)
     }
 }
 
-renderClients()
+(async function assignClientsToArray() {
+    clients = await getClients()
+    //return message if 404
+
+    renderClients()
+})()
+
+searchInput.addEventListener('input', e => {
+    if(searchInput.value.trim() === '') {
+        renderClients()
+    }
+    else {
+        const filteredArray = clients.filter(client => client.username.toLowerCase().includes(searchInput.value.toLowerCase().trim()))
+        renderClients(filteredArray)
+    }
+})
+
