@@ -1,64 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/outside/register.css">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/outside/register.css" />
+  <title>Bem Estar — Entrar / Registrar</title>
 </head>
 <body>
-    <div id="container">
-        <div class="inner">
-                <div id="register">
-                <h1>R e g i s t e r</h1>
-                <form action="/auth/register" method="post">
-                    <p id="serverFeedback" class="response"></p>
-                    <label for="username">Username</label>
-                    <input type="text" name="username" placeholder="MyName">
-        
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="MyPassword123" name="password">
-        
-                    <label for="email">Email</label>
-                    <input type="email" placeholder="MyEmail@gmail.com" name="email">                    
-                    <label for="role">Tipo de Conta</label>
-                    <select name="role" id="role">
-                        <option value="" disabled>Tipo de conta</option>
-                        <option value="client">Cliente</option>
-                        <option value="professional">Profissional</option>
-                    </select>
-                    <div>
-                        <button type="button" id="registerButton">Submit</button>
-                        <p>/</p>
-                        <button class="move" type="button">Have an account?</button>
-                    </div>
-                </form>
-                <div id="complement">
-                </div>
+  <main id="container" class="page-root">
+    <section class="card-wrap" aria-live="polite">
+      <div class="inner" aria-hidden="false">
+        <article id="register" class="card front" aria-labelledby="registerTitle">
+          <header>
+            <h1 id="registerTitle" class="brand-title">Bem Estar</h1>
+            <h2 class="card-subtitle">Criar conta</h2>
+          </header>
+
+          <form action="/auth/register" method="post" aria-describedby="serverFeedback" novalidate>
+            <p id="serverFeedback" class="response" role="status" aria-live="polite"></p>
+
+            <label for="reg-username">Username</label>
+            <input id="reg-username" type="text" name="username" placeholder="SeuNome" autocomplete="username" required>
+
+            <label for="reg-password">Password</label>
+            <input id="reg-password" type="password" name="password" placeholder="Senha forte" autocomplete="new-password" required>
+
+            <label for="reg-email">Email</label>
+            <input id="reg-email" type="email" name="email" placeholder="email@exemplo.com" autocomplete="email" required>
+
+            <label for="role">Tipo de Conta</label>
+            <select id="role" name="role" required>
+              <option value="" disabled selected>Tipo de conta</option>
+              <option value="client">Cliente</option>
+              <option value="professional">Profissional</option>
+            </select>
+
+            <div class="actions">
+              <button type="button" id="registerButton" class="btn primary">Registrar</button>
+              <button class="btn ghost move" type="button">Já tem conta?</button>
             </div>
-            <div id="login">
-                <h1>L o g i n</h1>
-                <form action="/auth/login" method="post">
-                    <p id="feedbackLogin" class="response"></p>
-                    <label for="username">Username</label>
-                    <input type="text" name="username" placeholder="MyName">
-        
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="MyPassword123" name="password">
-        
-                    <label for="email">Email</label>
-                    <input type="email" placeholder="MyEmail@gmail.com" name="email">
-                    <div>
-                        <button type="button" id="loginButton">Submit</button>
-                        <p>/</p>
-                        <button class="move" type="button">No account?</button>
-                    </div>
-                </form>
-                <div id="complement">
-                </div>
+          </form>
+
+          <footer class="card-footer">
+            <small>Você receberá um e-mail para confirmar sua conta.</small>
+          </footer>
+        </article>
+
+        <article id="login" class="card back" aria-labelledby="loginTitle">
+          <header>
+            <h1 id="loginTitle" class="brand-title">Bem Estar</h1>
+            <h2 class="card-subtitle">Entrar</h2>
+          </header>
+
+          <form action="/auth/login" method="post" aria-describedby="feedbackLogin" novalidate>
+            <p id="feedbackLogin" class="response" role="status" aria-live="polite"></p>
+
+            <label for="login-username">Username</label>
+            <input id="login-username" type="text" name="username" placeholder="SeuNome" autocomplete="username" required>
+
+            <label for="login-password">Password</label>
+            <input id="login-password" type="password" name="password" placeholder="Sua senha" autocomplete="current-password" required>
+
+            <label for="login-email">Email</label>
+            <input id="login-email" type="email" name="email" placeholder="email@exemplo.com" autocomplete="email">
+
+            <div class="actions">
+              <button type="button" id="loginButton" class="btn primary">Entrar</button>
+              <button class="btn ghost move" type="button">Ainda não?</button>
             </div>
-        </div>
-    </div>
-    <script src="js/outside/registerScript.js"></script>
+          </form>
+
+          <footer class="card-footer">
+            <small>Esqueceu a senha?</small>
+          </footer>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/outside/registerScript.js"></script>
 </body>
 </html>
