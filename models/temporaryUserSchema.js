@@ -26,7 +26,14 @@ const temporaryUser = new mongoose.Schema({
         type : Boolean,
         default: false
     },
-    random : String
+    random : String,
+    // createdAt: {
+    //     type: Date,
+    //     default: Date.now,
+    //     expires: 60 * 60
+    // }
+}, {
+    timestamps: true
 })
 
 module.exports = mongoose.model('temporaryUser', temporaryUser)

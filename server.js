@@ -4,6 +4,8 @@ const express = require("express");
 const path = require("path");
 const cookie = require('cookie-parser')
 const cors = require("cors");
+const rateLimit = require("express-rate-limit");
+
 
 
 const homeRouter = require("./routes/beforeLogin");
@@ -24,6 +26,17 @@ app.use(cors({
   credentials: true
 }));
 
+const limiter  = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: {
+        status: 429,
+        error: "Too many requests"
+    }
+})
+
+app.use(limiter)
+
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));
 app.use(express.json())
@@ -32,6 +45,8 @@ app.use(cookieParser())
 //views and public folders
 app.set("views", path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 //routers
 app.use('/', renderRouter)

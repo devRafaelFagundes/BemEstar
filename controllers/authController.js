@@ -1,5 +1,6 @@
 require("dotenv").config()
 const crypto = require("crypto")
+const cron = require('node-cron')
 const User = require("../models/userSchema")
 const temporaryUser = require('../models/temporaryUserSchema')
 const bcrypt = require("bcrypt")
@@ -157,7 +158,7 @@ const generateTemporaryUser = async (req, res, next) => {
             password: hashedPassword,
             email,
             role,
-            random: randomString
+            random: randomString,
         })
         if(!newUser) {
             const error = new Error('Something went wrong when trying to create the user')
@@ -205,7 +206,7 @@ const confirmUser = async (req, res, next) => {
             username: infoObj.username,
             email: infoObj.email,
             role: infoObj.role,
-            password: infoObj.password
+            password: infoObj.password,
         }
 
         return register(req, res, next)
@@ -217,5 +218,17 @@ const confirmUser = async (req, res, next) => {
 
 //user a lib such as node-cron for cleaning unconfirmed users after a setted time
 
+cron.schedule('0 * * * *', async () => {
+    const dateLimit = new Date(Date.now() - (1000 * 60 * 60))
+    try {
+        const result = await temporaryUser.deleteMany({
+            isEmailConfirmed: false,
+            createdAt: {$lt: dateLimit}
+        })
+        console.log('Deleted users', result.deletedCount)
+    } catch (error) {
+        console.log('An error ocurred while trying to delete temporary users')
+    }
+})
 
 module.exports = {register, logIn, changePassword, logout, confirmUser, generateTemporaryUser}
