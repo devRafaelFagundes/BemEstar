@@ -21,6 +21,15 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
+//views and public folders
+app.set("views", path.resolve(__dirname, '../views'));
+app.use(express.static(path.resolve(__dirname, '../public')));
+
+const viewsPath = path.resolve(__dirname, '../views')
+const publicPath = path.resolve(__dirname, 'public')
+console.log(viewsPath)
+console.log(publicPath)
+
 app.use(cors({
   origin: "http://localhost:3000",
   credentials: true
@@ -41,10 +50,6 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));
 app.use(express.json())
 app.use(cookieParser())
-
-//views and public folders
-app.set("views", path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
 
 
 
