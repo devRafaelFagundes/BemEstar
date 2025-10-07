@@ -18,10 +18,6 @@ const app = express();
 //views and public folders
 app.set("views", path.resolve(__dirname, '../views'));
 app.use(express.static(path.resolve(__dirname, '../public')));
-const viewsPath = path.resolve(__dirname, '../views');
-const publicPath = path.resolve(__dirname, 'public');
-console.log(viewsPath);
-console.log(publicPath);
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
@@ -60,4 +56,5 @@ app.listen(3000, () => {
     console.log("port 3000 in open state");
 });
 connectToDb();
+module.exports = app;
 //# sourceMappingURL=server.js.map

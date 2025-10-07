@@ -5,6 +5,7 @@ const User = require("../models/userSchema")
 const temporaryUser = require('../models/temporaryUserSchema')
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const z = require('zod')
 const {sendEmail, formEmailMessage} = require('../helpers/sendEmail')
 const register = async (req, res, next) => {
     try {
@@ -184,14 +185,16 @@ const generateTemporaryUser = async (req, res, next) => {
     }
 }
 
+const randomStringPassword = z.object({
+    random: z.string()
+})
 
 const confirmUser = async (req, res, next) => {
     try {
-        const randomString = req.params.random
+        const randomString = randomStringPassword.parse({random: req.params.random})
+        //put regex validation to prevet query injection
         //confirm if the string exists in the database of temporaryUsers
-        const findUserByString = await temporaryUser.findOne({
-            random: randomString
-        })
+        
         if(!findUserByString) {
             const error = new Error('Temporary user not found')
             error.statusCode = 404
