@@ -5,9 +5,11 @@
     "rootDir": "./src",
     "outDir": "./dist",
 
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    "module": "commonjs",
     "target": "esnext",
     "types": [],
     // For nodejs:

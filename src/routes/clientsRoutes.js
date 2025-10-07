@@ -6,11 +6,13 @@ const professionalMiddleware = require("../middlewares/professionalMiddleware")
 const clientsRouter = express.Router()
 
 
-const {getClients, clientsPersonal, updatePersonal} = require('../controllers/clientsController')
+const {getClients, clientsPersonal, userController} = require('../controllers/clientsController')
 
 clientsRouter.get('/', authMiddleware, professionalMiddleware, getClients)
 
-clientsRouter.post('/personal/update', authMiddleware, updatePersonal)
+clientsRouter.post('/personal/update', authMiddleware, (req, res, next) => {
+    userController.updatePersonal(req, res, next)
+})
 
 clientsRouter.get('/personal', authMiddleware, clientsPersonal)
 clientsRouter.get('/personal/:id', authMiddleware, clientsPersonal)
