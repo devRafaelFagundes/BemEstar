@@ -149,5 +149,5 @@ class UserController {
 //     }
 // }
 
-const userController = new UserController
+const userController = new UserController()
 module.exports = {getClients, clientsPersonal, userController}

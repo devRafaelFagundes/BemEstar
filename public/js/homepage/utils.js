@@ -79,6 +79,7 @@ export function genScreen(positionX, positionY, width, height) {
 
 export function removeWhenNotClicked(elementId) {
     const element = document.getElementById(elementId)
+    if (!element) return;
     document.addEventListener('click', (e) => {
         if(!(e.target === element) && !element.contains(e.target)) {
             element.remove()

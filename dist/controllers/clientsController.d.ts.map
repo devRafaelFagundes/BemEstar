@@ -1,1 +1,1 @@
-{"version":3,"file":"clientsController.d.ts","sourceRoot":"","sources":["../../src/controllers/clientsController.js"],"names":[],"mappings":"AAGA,wEAgCC;AAED,6EAyEC;AAED,4EAmBC"}
+{"version":3,"file":"clientsController.d.ts","sourceRoot":"","sources":["../../src/controllers/clientsController.ts"],"names":[],"mappings":""}

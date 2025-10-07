@@ -10,7 +10,6 @@ const personalInfoSchema = z.object({
     height: z.number().optional(),
     medicalCondition: z.string().optional()
 })
-
 class UserService {
     async updatePersonalInfo(userId: string, data: Partial<PersonalInfo>) {
         const parsedData = personalInfoSchema.parse(data)

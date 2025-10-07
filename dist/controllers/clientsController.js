@@ -1,5 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const zod = require("zod");
 const User = require("../models/userSchema");
+const userService = require('../services/userServices');
 const mongoose = require("mongoose");
 const getClients = async (req, res, next) => {
     //will create a filter function later for this part
@@ -62,7 +65,7 @@ const clientsPersonal = async (req, res, next) => {
                 return next(error);
             }
             const professional = await User.findById(userId);
-            if (!professional.clientes.some(id => id.toString() === passedUserId)) {
+            if (!professional.clientes.some((id) => id.toString() === passedUserId)) {
                 const error = new Error('Can not access user not afilliated');
                 error.statusCode = 400;
                 return next(error);
@@ -100,26 +103,39 @@ const clientsPersonal = async (req, res, next) => {
         next(error);
     }
 };
-const updatePersonal = async (req, res, next) => {
-    try {
-        const allowedFields = ["weight", "bodyfat", "goal", "height", "medicalCondition"];
-        let changes = {};
-        for (field of allowedFields) {
-            if (req.body[field] !== undefined) {
-                changes[field] = req.body[field];
-            }
+class UserController {
+    async updatePersonal(req, res, next) {
+        try {
+            const userId = req.userInfo.userId;
+            const data = req.body;
+            const result = await userService.updatePersonalInfo(userId, data);
+            return res.status(200).json(result);
         }
-        const userChanging = await User.findById(req.userInfo.userId);
-        Object.assign(userChanging.personalInfo, changes);
-        await userChanging.save();
-        return res.json({
-            success: true,
-            message: 'Client updated successfully'
-        });
+        catch (error) {
+            return next(error);
+        }
     }
-    catch (error) {
-        return next(error);
-    }
-};
-module.exports = { getClients, clientsPersonal, updatePersonal };
+}
+// const updatePersonal = async (req, res, next) => {
+//     try {
+//         const allowedFields = ["weight", "bodyfat", "goal", "height", "medicalCondition"]
+//         let changes = {}
+//         for(field of allowedFields) {
+//             if(req.body[field] !== undefined) {
+//                 changes[field] = req.body[field]
+//             }
+//         }
+//         const userChanging = await User.findById(req.userInfo.userId);
+//         Object.assign(userChanging.personalInfo, changes)
+//         await userChanging.save()
+//         return res.json({
+//             success : true,
+//             message: 'Client updated successfully'
+//         })
+//     } catch (error) {
+//         return next(error)
+//     }
+// }
+const userController = new UserController();
+module.exports = { getClients, clientsPersonal, userController };
 //# sourceMappingURL=clientsController.js.map
