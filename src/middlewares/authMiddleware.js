@@ -2,13 +2,13 @@ require("dotenv").config()
 const crypto = require("crypto")
 const User = require("../models/userSchema")
 const jwt = require("jsonwebtoken")
-const tokenMinutesLimit = require("../controllers/authController")
+// const tokenMinutesLimit = require("../controllers/authController")
 
 const authMiddleware = async (req, res, next) =>{
     //get token from the cookie
     const token = req.cookies?.token;
     if(!token) {
-        const error = new Error("No token available")
+        const error = new Error("No token (or refresh token) available")
         error.statusCode = 401
         return next(error)
     }
@@ -32,7 +32,12 @@ const authMiddleware = async (req, res, next) =>{
             return next(err)
         }
         console.log("Token expirado")
-        const refreshToken = req.cookies.refreshToken;
+        const refreshToken = req.cookies?.refreshToken;
+        if(!refreshToken) {
+            const error =  new Error('No token (or refresh token) available')
+            error.statusCode = 401
+            return next(error)
+        }
         const matchRefresh = await User.findOne({
             "refreshToken.token" : refreshToken
         })
