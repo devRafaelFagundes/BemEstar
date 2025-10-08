@@ -2,7 +2,7 @@
 
 ![Homepage](./public/img/readmeImages/homepage.png)
 
-BemEstar é uma API backend desenvolvida com Javascript e Typescript para servir de base para uma plataforma de promoção à saúde, atuando como ponte entre usuários e profissionais da área. O foco é fornecer endpoints robustos e escaláveis para autenticação com token e refreshToken, cadastro por confirmação de email, gerenciamento de usuários, profissionais e funcionalidades relacionadas ao bem-estar físico e mental.
+BemEstar é uma aplicação fullstack com Javascript e Typescript para servir de base para uma plataforma de promoção à saúde, atuando como ponte entre usuários e profissionais da área. O foco é fornecer endpoints robustos e escaláveis para autenticação com token e refreshToken, cadastro por confirmação de email, gerenciamento de usuários, profissionais e funcionalidades relacionadas ao bem-estar físico e mental.
 
 ## Estrutura do Projeto
 - **dist/** - Código transpilado para js
