@@ -1,4 +1,5 @@
 require("dotenv").config()
+const mongoose = require('mongoose')
 const crypto = require("crypto")
 const cron = require('node-cron')
 const User = require("../models/userSchema")
@@ -185,13 +186,13 @@ const generateTemporaryUser = async (req, res, next) => {
     }
 }
 
-const randomStringPassword = z.object({
-    random: z.string()
-})
 
 const confirmUser = async (req, res, next) => {
     try {
-        const randomString = randomStringPassword.parse({random: req.params.random})
+        const randomString = req.params.random
+        const findUserByString = await temporaryUser.findOne({
+            random: randomString
+        })
         //put regex validation to prevet query injection
         //confirm if the string exists in the database of temporaryUsers
         

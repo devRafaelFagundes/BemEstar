@@ -1,5 +1,6 @@
 "use strict";
 require("dotenv").config();
+const mongoose = require('mongoose');
 const crypto = require("crypto");
 const cron = require('node-cron');
 const User = require("../models/userSchema");
@@ -169,12 +170,12 @@ const generateTemporaryUser = async (req, res, next) => {
         next(error);
     }
 };
-const randomStringPassword = z.object({
-    random: z.string()
-});
 const confirmUser = async (req, res, next) => {
     try {
-        const randomString = randomStringPassword.parse({ random: req.params.random });
+        const randomString = req.params.random;
+        const findUserByString = await temporaryUser.findOne({
+            random: randomString
+        });
         //put regex validation to prevet query injection
         //confirm if the string exists in the database of temporaryUsers
         if (!findUserByString) {
@@ -198,18 +199,20 @@ const confirmUser = async (req, res, next) => {
     }
 };
 //user a lib such as node-cron for cleaning unconfirmed users after a setted time
-cron.schedule('0 * * * *', async () => {
-    const dateLimit = new Date(Date.now() - (1000 * 60 * 60));
-    try {
-        const result = await temporaryUser.deleteMany({
-            isEmailConfirmed: false,
-            createdAt: { $lt: dateLimit }
-        });
-        console.log('Deleted users', result.deletedCount);
-    }
-    catch (error) {
-        console.log('An error ocurred while trying to delete temporary users');
-    }
-});
+if (process.env.NODE_PRODUCTION === 'true') {
+    cron.schedule('0 * * * *', async () => {
+        const dateLimit = new Date(Date.now() - (1000 * 60 * 60));
+        try {
+            const result = await temporaryUser.deleteMany({
+                isEmailConfirmed: false,
+                createdAt: { $lt: dateLimit }
+            });
+            console.log('Deleted users', result.deletedCount);
+        }
+        catch (error) {
+            console.log('An error ocurred while trying to delete temporary users');
+        }
+    });
+}
 module.exports = { register, logIn, changePassword, logout, confirmUser, generateTemporaryUser };
 //# sourceMappingURL=authController.js.map

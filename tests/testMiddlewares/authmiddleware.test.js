@@ -13,7 +13,7 @@ test('calling middleware without a token', () => {
     expect(next).toHaveBeenCalledWith(expectedError)
 })
 
-test('calling middlware with invalid token (not valid or expired)', () => {
+test('calling middlware with invalid token (not valid or expired) and no refreshToken', () => {
     jest.spyOn(jwt, 'verify').mockReturnValue(new Error('invalidTokenNotExpired'))
     const req = jest.fn(() => {
         cookies : {

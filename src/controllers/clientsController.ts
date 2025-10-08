@@ -1,10 +1,10 @@
 import type { Request, Response, NextFunction} from "express"
-import type {}from "mongoose"
+import type {} from "mongoose"
 import type {CustomError} from "../types/error"
 import type {AuthRequest} from "../types/user"
 import zod = require("zod")
 const User = require("../models/userSchema")
-const userService = require('../services/userServices')
+const {UserService} = require('../services/userServices')
 
 const mongoose = require("mongoose")
 
@@ -116,38 +116,21 @@ const clientsPersonal = async (req: AuthRequest, res: Response, next: NextFuncti
         next(error)
     }
 }
-class UserController {
+export class UserController {
+    private userService: any
+    constructor(userService:any) {
+        this.userService = userService
+    }
     async updatePersonal(req: AuthRequest, res: Response, next: NextFunction){
         try {
-            const userId = req.userInfo.userId
-            const data = req.body
-            const result = await userService.updatePersonalInfo(userId, data)
-            return res.status(200).json(result)
-        } catch (error: any) {
+            const result = await this.userService.updatePersonalInfo(req.userInfo.userId, req.body)
+            return res.status(200).json({success: true, message: "User updated successfully"})
+        } catch (error) {
             return next(error)
         }
     }
 }
-// const updatePersonal = async (req, res, next) => {
-//     try {
-//         const allowedFields = ["weight", "bodyfat", "goal", "height", "medicalCondition"]
-//         let changes = {}
-//         for(field of allowedFields) {
-//             if(req.body[field] !== undefined) {
-//                 changes[field] = req.body[field]
-//             }
-//         }
-//         const userChanging = await User.findById(req.userInfo.userId);
-//         Object.assign(userChanging.personalInfo, changes)
-//         await userChanging.save()
-//         return res.json({
-//             success : true,
-//             message: 'Client updated successfully'
-//         })
-//     } catch (error) {
-//         return next(error)
-//     }
-// }
 
-const userController = new UserController()
+
+const userController = new UserController(UserService)
 module.exports = {getClients, clientsPersonal, userController}

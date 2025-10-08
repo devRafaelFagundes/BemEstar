@@ -10,7 +10,8 @@ const personalInfoSchema = z.object({
     height: z.number().optional(),
     medicalCondition: z.string().optional()
 })
-class UserService {
+
+export class UserService {
     async updatePersonalInfo(userId: string, data: Partial<PersonalInfo>) {
         const parsedData = personalInfoSchema.parse(data)
         const user = await userSchema.findById(userId)
@@ -20,12 +21,6 @@ class UserService {
 
         user.personalInfo = {...user.personalInfo, ...parsedData}
         await user.save()
-        return {
-            success: true,
-            message: "Personal Info updated successfully"   
-        }
+        return user;
     }
 }
-
-const userService = new UserService()
-module.exports = userService
