@@ -2,20 +2,21 @@
 
 ![Homepage](./public/img/readmeImages/homepage.png)
 
-BemEstar é uma API backend (com front simples para teste) desenvolvida para servir de base para uma plataforma de promoção à saúde, atuando como ponte entre usuários e profissionais da área. O foco é fornecer endpoints robustos e escaláveis para autenticação, cadastro, gerenciamento de usuários, profissionais e funcionalidades relacionadas ao bem-estar físico e mental.
+BemEstar é uma aplicação fullstack com Javascript e Typescript para servir de base para uma plataforma de promoção à saúde, atuando como ponte entre usuários e profissionais da área. O foco é fornecer endpoints robustos e escaláveis para autenticação com token e refreshToken, cadastro por confirmação de email, gerenciamento de usuários, profissionais e funcionalidades relacionadas ao bem-estar físico e mental.
 
 ## Estrutura do Projeto
-
-- **controllers/** — Lógica dos endpoints e orquestração das regras de negócio.
-- **models/** — Modelos de dados utilizados pela aplicação, integrados ao banco de dados.
-- **routes/** — Definição das rotas da API, agrupando endpoints por domínio (usuários, profissionais, etc).
-- **middlewares/** — Middlewares customizados para autenticação, validação e tratamento de erros.
-- **helpers/** — Funções utilitárias utilizadas em diferentes partes do projeto.
-- **database/** — Configurações, scripts e conexões com o banco de dados.
-- **server.js** — Ponto de entrada principal da aplicação, carregando middlewares, rotas e inicializando o servidor.
-- **public/** — Arquivos estáticos (se necessário).
+- **dist/** - Código transpilado para js
+- **src/**
+   - **controllers/** — Lógica dos endpoints e orquestração das regras de negócio.
+   - **models/** — Modelos de dados utilizados pela aplicação, integrados ao banco de dados.
+   - **routes/** — Definição das rotas da API, agrupando endpoints por domínio (usuários, profissionais, etc).
+   - **middlewares/** — Middlewares customizados para autenticação, validação e tratamento de erros.
+   - **helpers/** — Funções utilitárias utilizadas em diferentes partes do projeto.
+   - **database/** — Configurações, scripts e conexões com o banco de dados.
+   - **server.js** — Ponto de entrada principal da aplicação, carregando middlewares, rotas e inicializando o servidor.
 - **views/** — Templates de visualização (caso aplicável).
-
+- **public/** — Arquivos estáticos (se necessário).
+- **tests/** - Arquivos para testes unitários e de integração
 ## Tecnologias e Ferramentas Utilizadas
 
 - **Node.js** — Ambiente de execução JavaScript para backend.
@@ -26,6 +27,8 @@ BemEstar é uma API backend (com front simples para teste) desenvolvida para ser
 - **bcrypt** — Criptografia de senhas.
 - **cookie-parser** — Parser de cookies nas requisições.
 - **cors** — Controle de compartilhamento de recursos entre origens.
+- **cron** — Limpar conjuntos expirados no banco de dados
+- **express-rate-limit** — Limitar chamadas chamadas sucessivas 
 - **EJS** — Motor de templates para views (se aplicável).
 
 ## Instalação e Uso
@@ -52,13 +55,6 @@ BemEstar é uma API backend (com front simples para teste) desenvolvida para ser
 - `npm run dev` — Inicia o servidor em modo desenvolvimento (se configurado).
 
 ## Endpoints Principais
-
-A API está estruturada para facilitar a inclusão de novos domínios (usuários, profissionais, sessões, etc). Exemplos de endpoints:
-
-- `POST /usuarios` — Cadastro de usuário
-- `POST /auth/login` — Autenticação
-- `GET /profissionais` — Listagem de profissionais
-- `POST /consultas` — Agendamento de consultas
 
 Veja as rotas detalhadas na pasta [`routes/`](./routes).
 
