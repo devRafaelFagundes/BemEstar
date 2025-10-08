@@ -6,7 +6,7 @@ const tokenMinutesLimit = require("../controllers/authController")
 
 const authMiddleware = async (req, res, next) =>{
     //get token from the cookie
-    const token = req.cookies.token;
+    const token = req.cookies?.token;
     if(!token) {
         const error = new Error("No token available")
         error.statusCode = 401

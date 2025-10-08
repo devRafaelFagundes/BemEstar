@@ -1,4 +1,4 @@
-const buildFilter = require('../../helpers/buildFilter')
+const buildFilter = require('../../src/helpers/buildFilter')
 describe('testing buildFilter function', () => {
     
     test('should create filter for professional role', () => {
