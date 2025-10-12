@@ -4,18 +4,14 @@ const authMiddleware =  require("../middlewares/authMiddleware")
 const professionalMiddleware = require("../middlewares/professionalMiddleware")
 
 const clientsRouter = express.Router()
+const {clientController} = require('../controllers/clientsController')
 
-
-const {getClients, clientsPersonal, userController} = require('../controllers/clientsController')
-
-clientsRouter.get('/', authMiddleware, professionalMiddleware, getClients)
-
-clientsRouter.post('/personal/update', authMiddleware, (req, res, next) => {
-    userController.updatePersonal(req, res, next)
+clientsRouter.get('/', authMiddleware, professionalMiddleware, (req, res, next) => {
+    clientController.getClients(req, res, next)
 })
 
-clientsRouter.get('/personal', authMiddleware, clientsPersonal)
-clientsRouter.get('/personal/:id', authMiddleware, clientsPersonal)
-
+clientsRouter.post('/personal/update', authMiddleware, (req, res, next) => {
+    clientController.updatePersonal(req, res, next)
+})
 
 module.exports = clientsRouter;

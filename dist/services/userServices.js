@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserService = void 0;
 const userSchema = require("../models/userSchema");
 const User = require('../models/userSchema');
 const z = require('zod');
@@ -19,12 +20,8 @@ class UserService {
         }
         user.personalInfo = { ...user.personalInfo, ...parsedData };
         await user.save();
-        return {
-            success: true,
-            message: "Personal Info updated successfully"
-        };
+        return user;
     }
 }
-const userService = new UserService();
-module.exports = userService;
+exports.UserService = UserService;
 //# sourceMappingURL=userServices.js.map

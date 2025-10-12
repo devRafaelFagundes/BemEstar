@@ -2,7 +2,7 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const cookie = require('cookie-parser');
+// const cookie = require('cookie-parser')
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 const homeRouter = require("./routes/beforeLogin");

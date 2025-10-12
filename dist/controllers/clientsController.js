@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const zod = require("zod");
+exports.UserController = void 0;
 const User = require("../models/userSchema");
-const userService = require('../services/userServices');
+const { UserService } = require('../services/userServices');
 const mongoose = require("mongoose");
 const getClients = async (req, res, next) => {
     //will create a filter function later for this part
@@ -104,38 +104,21 @@ const clientsPersonal = async (req, res, next) => {
     }
 };
 class UserController {
+    userService;
+    constructor(userService) {
+        this.userService = userService;
+    }
     async updatePersonal(req, res, next) {
         try {
-            const userId = req.userInfo.userId;
-            const data = req.body;
-            const result = await userService.updatePersonalInfo(userId, data);
-            return res.status(200).json(result);
+            const result = await this.userService.updatePersonalInfo(req.userInfo.userId, req.body);
+            return res.status(200).json({ success: true, message: "User updated successfully" });
         }
         catch (error) {
             return next(error);
         }
     }
 }
-// const updatePersonal = async (req, res, next) => {
-//     try {
-//         const allowedFields = ["weight", "bodyfat", "goal", "height", "medicalCondition"]
-//         let changes = {}
-//         for(field of allowedFields) {
-//             if(req.body[field] !== undefined) {
-//                 changes[field] = req.body[field]
-//             }
-//         }
-//         const userChanging = await User.findById(req.userInfo.userId);
-//         Object.assign(userChanging.personalInfo, changes)
-//         await userChanging.save()
-//         return res.json({
-//             success : true,
-//             message: 'Client updated successfully'
-//         })
-//     } catch (error) {
-//         return next(error)
-//     }
-// }
-const userController = new UserController();
+exports.UserController = UserController;
+const userController = new UserController(UserService);
 module.exports = { getClients, clientsPersonal, userController };
 //# sourceMappingURL=clientsController.js.map
