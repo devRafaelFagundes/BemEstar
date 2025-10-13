@@ -76,7 +76,7 @@ export class ClientsServices {
             const error: CustomError = new Error('No users found')
             error.statusCode = 404
             throw error
-        }g
+        }
         return users
     }
 }

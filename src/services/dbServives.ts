@@ -15,19 +15,13 @@ export default class DBCommands<T> {
     async findById(id: string) {
         return await this.database.findById(id)
     }
-    async save(data: T) {
-        return await this.database.save(data)
-    }
     async updateById(id: string, newData: Partial<T>) {
-        const user = await this.findById(id)
+        const user = await this.database.findByIdAndUpdate(newData, id)
         if(!user) {
             const error: CustomError = new Error('Can not find user')
             error.statusCode = 404
             throw error
-        } 
-        Object.assign(user, newData)
-        await this.database.save(user)
-        return user
+        }
     }
     async deleteById(id: string) {
         return await this.database.deleteById(id)
