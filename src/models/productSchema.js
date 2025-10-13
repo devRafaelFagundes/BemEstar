@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const User = require("./userSchema")
+const User = require("./userSchema.ts")
 const productSchema = new mongoose.Schema({
     nome : {
         required : true,

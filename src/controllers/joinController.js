@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
-const User = require("../models/userSchema")
+const User = require("../models/userSchema.ts")
 //only professionals can use this route
 
 const joinFunction = async (req, res, next) => {

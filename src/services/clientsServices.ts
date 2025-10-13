@@ -12,7 +12,7 @@ const personalInfoSchema = z.object({
     medicalCondition: z.string().optional()
 })
 
-export class ValidateInput {
+export class ValidateClientInput {
     infoObject: Partial<PersonalInfo>
     constructor(infoObject: Partial<PersonalInfo>) {
         this.infoObject = infoObject
@@ -29,13 +29,14 @@ export class ClientsServices {
             const error: CustomError = new Error('Professionals have no access to personal info')
             error.statusCode = 403
             throw error
-            return
         } 
-        const validateController = new ValidateInput(data)
+        const validateController = new ValidateClientInput(data)
         const parsedData = validateController.validate()
         const user = await User.findById(userId)
         if(!user) {
-            throw new Error('User not found')
+            const error: CustomError = new Error('User not found')
+            error.statusCode = 404
+            throw error
         }
 
         user.personalInfo = {...user.personalInfo, ...parsedData}
@@ -50,7 +51,6 @@ export class ClientsServices {
                 const error: CustomError = new Error('You were not found, but its logged?')
                 error.statusCode = 403
                 throw error
-                return
             }
             return user
         }
@@ -60,13 +60,11 @@ export class ClientsServices {
                 const error: CustomError = new Error('User not found')
                 error.statusCode = 404
                 throw error
-                return
             }
             if(!user.professional.equals(mongoosePersonalId)) {
                 const error: CustomError = new Error('You do not have access to this user info')
                 error.statusCode = 403
                 throw error
-                return
             }
             return user
         }
@@ -78,8 +76,9 @@ export class ClientsServices {
             const error: CustomError = new Error('No users found')
             error.statusCode = 404
             throw error
-            return
-        }
+        }g
         return users
     }
 }
+
+//next steps, separate all the queries (db) in classes, after all, we need to test it with jest

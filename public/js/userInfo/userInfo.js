@@ -58,7 +58,7 @@ const fetchUserInfo = async (id) => {
     return;
   }
   try {
-    const resp = await fetch(`/clients/personal/${id}`, { credentials: 'include' });
+    const resp = await fetch(`/clients/?specificClient=${id}`, { credentials: 'include' });
     if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
     const res = await resp.json();
     if (res && res.success && res.message) {

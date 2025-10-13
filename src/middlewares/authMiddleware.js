@@ -1,6 +1,6 @@
 require("dotenv").config()
 const crypto = require("crypto")
-const User = require("../models/userSchema")
+const User = require("../models/userSchema.ts")
 const jwt = require("jsonwebtoken")
 // const tokenMinutesLimit = require("../controllers/authController")
 

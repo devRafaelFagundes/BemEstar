@@ -1,12 +1,7 @@
-import type { Request, Response, NextFunction} from "express"
+import type {Response, NextFunction} from "express"
 import type {} from "mongoose"
-import type {CustomError} from "../types/error"
 import type {AuthRequest} from "../types/user"
-import zod = require("zod")
-const User = require("../models/userSchema")
 import {ClientsServices} from "../services/clientsServices"
-
-const mongoose = require("mongoose")
 
 export class ClientsController {
     protected userService: any

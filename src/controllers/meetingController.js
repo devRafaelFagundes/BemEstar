@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Meeting = require("../models/meetingSchema")
 const buildFilter = require("../helpers/buildFilter");
-const { findByIdAndDelete } = require("../models/userSchema");
+const { findByIdAndDelete } = require("../models/userSchema.ts");
 //only use with authMiddleware and professionalMiddleware
 
 //get meetings (PUBLIC QUERY)

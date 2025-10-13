@@ -2,7 +2,7 @@ require("dotenv").config()
 const mongoose = require('mongoose')
 const crypto = require("crypto")
 const cron = require('node-cron')
-const User = require("../models/userSchema")
+import { User } from "../models/userSchema"
 const temporaryUser = require('../models/temporaryUserSchema')
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
